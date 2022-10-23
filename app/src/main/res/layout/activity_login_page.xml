@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".LoginAndRegisterPage.login_page">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_sans"
+        android:text="@string/login_title"
+        android:textColor="#0C1A30"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="80dp"
+        android:lineHeight="35dp"
+        android:textFontWeight="700"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please enter data to login"
+        android:lineSpacingExtra="7sp"
+        android:textSize="14sp"
+        android:fontFamily="@font/dm_sans"
+        android:textColor="#838589"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:textFontWeight="400">
+
+    </TextView>
+
+    <TextView
+
+        android:layout_width="325dp"
+        android:layout_height="19dp"
+        android:text="CNA"
+        android:textColor="#0C1A30"
+        android:lineSpacingExtra="2sp"
+        android:translationY="-0.89sp"
+        android:gravity="top"
+        android:textSize="14sp"
+        android:textFontWeight="400"
+        android:fontFamily="@font/dm_sans"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="25dp"
+
+        />
+
+    <EditText
+        android:id="@+id/edtlogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_input"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:hint="Enter Your Student Number"
+        android:gravity="center_vertical"
+        android:textColor="#0C1A30"
+        android:paddingLeft="16dp"
+        android:textColorHint="#C4C5C4"/>
+
+
+
+    <TextView
+
+        android:layout_width="325dp"
+        android:layout_height="19dp"
+        android:text="Password"
+        android:textColor="#0C1A30"
+        android:lineSpacingExtra="2sp"
+        android:translationY="-0.89sp"
+        android:gravity="top"
+        android:textSize="14sp"
+        android:textFontWeight="400"
+        android:fontFamily="@font/dm_sans"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="25dp"
+
+        />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/login_input"
+            android:hint="Enter Account Password"
+            android:inputType="textPassword"
+            android:paddingLeft="16dp"
+            android:textColor="#0C1A30"
+            android:textColorHint="#C4C5C4"
+
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:gravity="right"
+            >
+
+            <ImageView
+                android:id="@+id/hiddenpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+
+                android:background="@drawable/ic_baseline_remove_red_eye_24" />
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnlogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/btn_login_color"
+        android:hint="Sign in"
+        android:textColorHint="@color/white"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/dash_line"
+
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="45dp">
+
+    </View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textColor="#3669C9"
+        android:textSize="14sp"
+        android:textFontWeight="500"
+        android:fontFamily="@font/dm_sans"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

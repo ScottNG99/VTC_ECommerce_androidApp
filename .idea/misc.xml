@@ -3,7 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/btn_login_color.xml" value="0.29270833333333335" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/btn_login_no_color.xml" value="0.36512820512820515" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/dash_line.xml" value="0.36512820512820515" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.36512820512820515" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/ic_view_pas.xml" value="0.36512820512820515" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/login_input.xml" value="0.36512820512820515" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_home_page.xml" value="0.25" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_login_page.xml" value="0.21875" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_main.xml" value="0.22509057971014493" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/content_home_page.xml" value="0.21875" />
       </map>
     </option>
   </component>
