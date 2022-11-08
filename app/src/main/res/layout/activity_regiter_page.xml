@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginAndRegisterPage.Regiter_pageActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+
+        android:id="@+id/backtologin">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/studentcard"
+        android:layout_marginTop="15dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Choose Photo"
+        android:textColorHint="@color/white"
+        android:background="@drawable/btn_login_color"
+        android:id="@+id/btnselect"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:hint="check"
+        android:enabled="false"
+        android:textColorHint="@color/white"
+        android:background="@drawable/btn_check_color"
+        android:id="@+id/tocheck"/>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Name:"
+            android:textColor="#0C1A30"
+            android:fontFamily="@font/dm_sans"
+            android:layout_marginLeft="25dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stuname"
+            android:textColor="#0C1A30"
+            android:fontFamily="@font/dm_sans"
+
+            android:layout_marginLeft="33dp"/>
+
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Number:"
+            android:textColor="#0C1A30"
+            android:fontFamily="@font/dm_sans"
+            android:layout_marginLeft="25dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stuid"
+            android:textColor="#0C1A30"
+            android:fontFamily="@font/dm_sans"
+
+            android:layout_marginLeft="20dp"/>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Course:"
+            android:textColor="#0C1A30"
+            android:fontFamily="@font/dm_sans"
+            android:layout_marginLeft="25dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stucourse"
+
+            android:textColor="#0C1A30"
+            android:fontFamily="@font/dm_sans"
+
+            android:layout_marginLeft="26dp"/>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Confirm"
+            android:layout_marginTop="40dp"
+            android:textColorHint="@color/white"
+            android:enabled="false"
+            android:background="@drawable/btn_check_color"
+            android:id="@+id/btnconfirm"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

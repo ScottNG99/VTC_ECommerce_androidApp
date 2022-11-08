@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".LoginAndRegisterPage.InputStudentDetailInfoActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="18sp"
+        android:textColor="#000000"
+
+        android:fontFamily="@font/dm_sans"
+        android:textFontWeight="700"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+
+        android:id="@+id/edtnikename"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:background="@drawable/login_input"
+        android:hint="Your Nickname. e.g : Jason"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone Number"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/dm_sans"
+        android:textFontWeight="700"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:id="@+id/edtmobile"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:background="@drawable/login_input"
+        android:hint="Your Phone Number e.g : 6123xxx"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Campus"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/dm_sans"
+        android:textFontWeight="700"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"/>
+
+    <Spinner
+        android:id="@+id/spinnercampus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="16dp"
+        android:layout_marginRight="25dp"
+        android:dropDownVerticalOffset="45dp"
+        android:background="@drawable/login_input"
+        android:entries="@array/spinnerclass"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/dm_sans"
+        android:textFontWeight="700"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:id="@+id/edtaddress"
+        android:gravity="center_vertical"
+
+        android:paddingLeft="16dp"
+        android:background="@drawable/login_input"
+        android:hint="Your Address "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/dm_sans"
+        android:textFontWeight="700"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:id="@+id/edtpwd"
+        android:gravity="center_vertical"
+        android:inputType="textPassword"
+        android:paddingLeft="16dp"
+        android:background="@drawable/login_input"
+        android:hint="Your Password "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Password"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/dm_sans"
+        android:textFontWeight="700"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:id="@+id/edtrepwd"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:background="@drawable/login_input"
+        android:inputType="textPassword"
+        android:hint="Re-type your password"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Confirm"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:textColorHint="@color/white"
+        android:layout_marginBottom="20dp"
+
+        android:background="@drawable/btn_login_color"
+        android:id="@+id/btnconfirm"
+        />
+
+
+            <ProgressBar
+                android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+    
+
+
+
+
+
+</LinearLayout>

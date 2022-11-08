@@ -109,8 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:gravity="right"
-            >
+            android:gravity="right">
 
             <ImageView
                 android:id="@+id/hiddenpwd"
@@ -154,12 +153,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign Up"
+        android:id="@+id/toregister"
         android:textColor="#3669C9"
         android:textSize="14sp"
         android:textFontWeight="500"
         android:fontFamily="@font/dm_sans"
         android:gravity="center"
         android:layout_marginTop="20dp"/>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 
 
 

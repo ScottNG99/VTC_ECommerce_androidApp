@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="spinnerclass">
+        <item>---Please select the school location---</item>
+        <item>Chai Wan</item>
+        <item>Haking Wong</item>
+        <item>Kwun Tong</item>
+        <item>Kwai Chung</item>
+        <item>Lee Wai Lee</item>
+        <item>Morrison Hill</item>
+        <item>Sha Tin</item>
+        <item>Tsing Yi</item>
+        <item>Tuen Mun</item>
+
+    </string-array>
+
+</resources>
