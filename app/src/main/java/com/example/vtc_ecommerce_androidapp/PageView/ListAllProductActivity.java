@@ -1,10 +1,8 @@
 package com.example.vtc_ecommerce_androidapp.PageView;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,21 +18,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.vtc_ecommerce_androidapp.Adater.ProductAdapter;
-import com.example.vtc_ecommerce_androidapp.Adater.SliderAdapter;
-import com.example.vtc_ecommerce_androidapp.MainActivity;
 import com.example.vtc_ecommerce_androidapp.ModelClass.product;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.api.Config;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigation.NavigationView;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,39 +33,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class HomePage_Activity extends AppCompatActivity implements RecyclerView.OnScrollChangeListener {
-
-    SliderView sliderView;
-    SearchView searchView;
-
-    int[] images = {R.drawable.vtc_notebook_banner,
-            R.drawable.newstwo,
-            R.drawable.newthree
-    };
+public class ListAllProductActivity extends AppCompatActivity implements RecyclerView.OnScrollChangeListener{
 
     private List<product> productList;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private  ProductAdapter adapter;
+    private ProductAdapter adapter;
+
+    private BottomNavigationView buttomNavbar;
 
     RequestQueue requestQueue;
     private int requestCount = 1;
 
-    private BottomNavigationView buttomNavbar;
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_list_all_product);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recViewAll);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         //Initializing our product list
@@ -85,7 +60,7 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         //Calling method to get data to fetch data
-        getData();
+        getDatatwo();
 
         //Adding an scroll change listener to recyclerview
         recyclerView.setOnScrollChangeListener(this);
@@ -97,29 +72,9 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
         recyclerView.setAdapter(adapter);
 
 
-
-        searchView = findViewById(R.id.searchView);
-
-
-        sliderView = findViewById(R.id.image_slider);
-
-        SliderAdapter sliderAdapter = new SliderAdapter(images);
-
-        sliderView.setSliderAdapter(sliderAdapter);
-        /* 設置圓點動畫效果*/
-        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-        /* 設置滾動動畫效果*/
-        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        sliderView.startAutoCycle();
-
-
-        searchView.setQueryHint("Search Product");
-        searchView.onActionViewExpanded();
-        searchView.clearFocus();
-
         buttomNavbar = findViewById(R.id.ButtomnavView);
 
-        buttomNavbar.setSelectedItemId(R.id.home);
+        buttomNavbar.setSelectedItemId(R.id.all);
 
 
         buttomNavbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -129,10 +84,11 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
                 switch(item.getItemId())
                 {
                     case R.id.all:
-                        startActivity(new Intent(HomePage_Activity.this,ListAllProductActivity.class));
+
 
                         return true;
                     case R.id.home:
+                        startActivity(new Intent(ListAllProductActivity.this,HomePage_Activity.class));
                         return true;
 
                 }
@@ -140,20 +96,15 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
             }
         });
 
-
-
     }
 
-
-
-    //This method will get data from the web api
     private JsonArrayRequest getDataFromServer(int requestCount) {
 
 
 
 
         //JsonArrayRequest of volley
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,Config.DATA_URL + String.valueOf(requestCount),null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Config.DATA_URL + String.valueOf(requestCount),null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -169,7 +120,7 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
                     public void onErrorResponse(VolleyError error) {
 
                         //If an error occurs that means end of the list has reached
-                        Toast.makeText(HomePage_Activity.this, "No More Items Available", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ListAllProductActivity.this, "No More Items Available", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -189,7 +140,7 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
 
 
 
-    private void getData() {
+    private void getDatatwo() {
         //Adding the method to the queue by calling the method getDataFromServer
         requestQueue.add(getDataFromServer(requestCount));
         //Incrementing the request counter
@@ -221,7 +172,7 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
                 e.printStackTrace();
             }
             //Adding the superhero object to the list
-            //productList.clear();
+            productList.clear();
             productList.add(product);
         }
 
@@ -244,12 +195,7 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
         //Ifscrolled at last then
         if (isLastItemDisplaying(recyclerView)) {
             //Calling the method getdata again
-            getData();
+            getDatatwo();
         }
     }
-
-
-
-
-
 }

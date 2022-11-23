@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -23,6 +24,7 @@ import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.Service.RequestHandler;
 import com.example.vtc_ecommerce_androidapp.Service.URLs;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,6 +36,11 @@ public class login_page extends AppCompatActivity {
     private Button tologin;
     private TextView toregister;
     private ImageView hiddenandshowpwd;
+
+
+
+    int enter = 0;
+
 
     int cliknum = 0;
 
@@ -47,6 +54,14 @@ public class login_page extends AppCompatActivity {
         tologin = findViewById(R.id.btnlogin);
         hiddenandshowpwd = findViewById(R.id.hiddenpwd);
         toregister = findViewById(R.id.toregister);
+
+
+        // if the user is already logged in we will directly start the profile activity
+        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+            finish();
+            startActivity(new Intent(this, HomePage_Activity.class));
+            return;
+        }
 
         toregister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +77,8 @@ public class login_page extends AppCompatActivity {
             public void onClick(View view) {
 //                Intent intent = new Intent(login_page.this,HomePage_Activity.class);
 //                startActivity(intent);
+
+
 
                 userLogin();
 
@@ -121,13 +138,16 @@ public class login_page extends AppCompatActivity {
                 super.onPreExecute();
                 progressBar = (ProgressBar) findViewById(R.id.progressBar);
                 progressBar.setVisibility(View.VISIBLE);
+
+
+
+
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                progressBar.setVisibility(View.GONE);
-
+               progressBar.setVisibility(View.GONE);
 
                 try {
                     //converting response to json object
@@ -155,11 +175,13 @@ public class login_page extends AppCompatActivity {
                         //storing the user in shared preferences
                         SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
 
-                        //starting the profile activity
                         finish();
-                        startActivity(new Intent(getApplicationContext(), HomePage_Activity.class));
+                        startActivity(new Intent(login_page.this,HomePage_Activity.class));
+
                     } else {
+
                         Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_SHORT).show();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -186,4 +208,6 @@ public class login_page extends AppCompatActivity {
 
 
     }
+
+
 }

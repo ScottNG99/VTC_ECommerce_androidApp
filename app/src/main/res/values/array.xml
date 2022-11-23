@@ -3,15 +3,15 @@
 
     <string-array name="spinnerclass">
         <item>---Please select the school location---</item>
-        <item>Chai Wan</item>
-        <item>Haking Wong</item>
-        <item>Kwun Tong</item>
-        <item>Kwai Chung</item>
-        <item>Lee Wai Lee</item>
-        <item>Morrison Hill</item>
-        <item>Sha Tin</item>
-        <item>Tsing Yi</item>
-        <item>Tuen Mun</item>
+        <item>IVE(CW)</item>
+        <item>IVE(HW)</item>
+        <item>IVE(KT)</item>
+        <item>IVE(KC)</item>
+        <item>IVE(LWL)</item>
+        <item>IVE(MH)</item>
+        <item>IVE(ST)</item>
+        <item>IVE(TY)</item>
+        <item>IVE(TM)</item>
 
     </string-array>
 

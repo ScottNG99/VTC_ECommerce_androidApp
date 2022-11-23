@@ -11,7 +11,10 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
         <!-- Customize your theme here. -->
+        <item name="colorSurface">@color/shrine_blue_100</item>
+        <item name="colorOnSurfaceVariant">@color/shrine_blue_900</item>
     </style>
 
     <style name="Theme.VTC_ECommerce_androidApp.NoActionBar">
@@ -22,4 +25,20 @@
     <style name="Theme.VTC_ECommerce_androidApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.VTC_ECommerce_androidApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+     <!--this below -->
+
+    <style name="Theme.App" parent="Theme.Material3.DayNight">
+        ...
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Theme.Material3.DayNight">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="Theme.Material3.DayNight">
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/shrine_blue_900</item>
+    </style>
+
 </resources>
