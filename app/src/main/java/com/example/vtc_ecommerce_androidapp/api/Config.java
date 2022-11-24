@@ -4,7 +4,7 @@ public class Config {
 
     //Data URL
     // Need to update your ip
-    public static final String DATA_URL = "http://192.168.1.218/ecommerce/getproduct.php?page=";
+    public static final String DATA_URL = "http://***.***.*.*/ecommerce/getproduct.php?page=";
 
     //JSON TAGS
     public static final String TAG_IMAGE_URL = "pro_image1";
