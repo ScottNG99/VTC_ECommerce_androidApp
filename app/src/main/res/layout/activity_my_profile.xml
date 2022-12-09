@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".PageView.MyProfileActivity">
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_sans"
+        android:text="Profile"
+        android:textColor="@color/black"
+        android:textFontWeight="500"
+        android:textSize="23sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/usericon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jason"
+            android:textColor="@color/black"
+            android:textFontWeight="500"
+            android:fontFamily="@font/dm_sans"
+            android:textSize="21sp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/userNikeName"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textFontWeight="500"
+            android:fontFamily="@font/dm_sans"
+            android:textSize="15sp"
+            android:text="210145212"
+            android:id="@+id/userCND"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:src="@drawable/btn_edit"
+            android:layout_marginTop="50dp"
+            android:id="@+id/toedit"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:src="@drawable/btn_collection"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tomycollection"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:src="@drawable/btn_logout"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tologout"/>
+
+
+
+    </LinearLayout>
+
+    <include layout="@layout/bottom_navigation"/>
+
+
+
+
+
+</LinearLayout>

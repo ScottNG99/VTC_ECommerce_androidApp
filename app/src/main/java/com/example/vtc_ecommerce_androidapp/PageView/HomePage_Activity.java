@@ -135,6 +135,9 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
                     case R.id.home:
                         return true;
 
+                    case R.id.user:
+                        startActivity(new Intent(HomePage_Activity.this,MyProfileActivity.class));
+                        return true;
                 }
                 return false;
             }

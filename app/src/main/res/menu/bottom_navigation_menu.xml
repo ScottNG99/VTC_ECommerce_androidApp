@@ -20,6 +20,6 @@
         android:id="@+id/user"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_2_24"
-        android:title="User"/>
+        android:title="Profile"/>
 
 </menu>
