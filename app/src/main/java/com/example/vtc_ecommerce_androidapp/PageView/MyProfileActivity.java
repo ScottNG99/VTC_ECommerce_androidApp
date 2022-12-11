@@ -11,11 +11,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.vtc_ecommerce_androidapp.Adater.CollectAdapter;
 import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
+import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
 import com.example.vtc_ecommerce_androidapp.ModelClass.Student;
 import com.example.vtc_ecommerce_androidapp.R;
+import com.example.vtc_ecommerce_androidapp.api.Config;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class MyProfileActivity extends AppCompatActivity {
 
@@ -41,6 +53,25 @@ public class MyProfileActivity extends AppCompatActivity {
         buttomNavbar.setSelectedItemId(R.id.user);
 
         String studentNikeName,studentNumber;
+
+        showProfile();
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyProfileActivity.this, EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        btnMyCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyProfileActivity.this,CollectActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         buttomNavbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,13 +104,68 @@ public class MyProfileActivity extends AppCompatActivity {
             }
         });
 
-        studentNikeName = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUser_mobile();
+
+
+
+        //studentNikeName = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUser_mobile();
         studentNumber = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getColleges();
 
         txtstudentNO.setText(studentNumber);
-        txtNikeName.setText(studentNikeName);
 
 
+
+
+
+
+    }
+
+    private void showProfile() {
+
+        int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+        String path = "userID=" + String.valueOf(userid);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.GET_USER_PROFILE+path,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+                        try {
+
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0; i<array.length(); i++){
+
+                                JSONObject object = array.getJSONObject(i);
+
+                                String UserName = object.getString("user_nick_name");
+                                System.out.println("get uName " + UserName);
+
+                                txtNikeName.setText(UserName);
+
+
+
+                            }
+
+
+                        }catch (Exception e){
+
+                        }
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+                Toast.makeText(MyProfileActivity.this, error.toString(),Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+
+        Volley.newRequestQueue(MyProfileActivity.this).add(stringRequest);
 
     }
 

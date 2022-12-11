@@ -2,6 +2,7 @@ package com.example.vtc_ecommerce_androidapp.PageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.vtc_ecommerce_androidapp.Manager.CollectManager;
+import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
+import com.example.vtc_ecommerce_androidapp.ModelClass.TestRespon;
 import com.example.vtc_ecommerce_androidapp.R;
+import com.example.vtc_ecommerce_androidapp.api.Config;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -25,6 +40,13 @@ public class ProductDetailActivity extends AppCompatActivity {
     // Set quantity limits later based on inventory
     int upperLimit = 10;
     int totalPrice;
+
+    //check Check whether a number is even or odd
+    int num = 0;
+
+
+
+    public  String getreponses;
 
 
 
@@ -46,6 +68,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         addQuantity = findViewById(R.id.add);
         minusQuantity = findViewById(R.id.minus);
 
+
+
         Intent intent = getIntent();
         String pImg = intent.getStringExtra("pImage");
         String pItro = intent.getStringExtra("pIntroduction");
@@ -53,6 +77,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         String pScore = intent.getStringExtra("pScore");
         String pDesce = intent.getStringExtra("pdesc");
         String pPrice = intent.getStringExtra("pPrice");
+        String pid = intent.getStringExtra("PID");
+
+        String getAcitityPage = intent.getStringExtra("sendActivity");
 
 
 
@@ -71,6 +98,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                     txttotalQuantity.setText(String.valueOf(quantity));
                     totalPrice = quantity * Integer.parseInt(pPrice);
                     txttotalprice.setText(String.valueOf(totalPrice));
+
+
                 }
 
 
@@ -117,11 +146,128 @@ public class ProductDetailActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProductDetailActivity.this,ListAllProductActivity.class);
-                startActivity(intent);
+
+                if (getAcitityPage.equals("ListAll")){
+                    Intent intent = new Intent(ProductDetailActivity.this,ListAllProductActivity.class);
+                    startActivity(intent);
+                }else if (getAcitityPage.equals("Collect")){
+                    Intent intent = new Intent(ProductDetailActivity.this,CollectActivity.class);
+                    startActivity(intent);
+                }
+
+
+            }
+        });
+        int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+        String productId = pid;
+        String txtUserID = String.valueOf(userid);
+        String targetURL = "userID="+txtUserID + "&productID=" +productId;
+        getCollectStatus(targetURL);
+
+
+
+
+        imgCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+                String productId = pid;
+                String txtUserID = String.valueOf(userid);
+
+                String targetURL = "userID="+txtUserID + "&productID=" +productId;
+
+                if (imgCollect.getBackground().getConstantState() == getResources().getDrawable(R.drawable.noheart).getConstantState()){
+
+
+                        imgCollect.setBackgroundResource(R.drawable.heart);
+
+                        String linkURL = Config.ADD_COLLECT_URL+targetURL;
+
+                        new CollectManager().execute(linkURL);
+                    }else {
+                        imgCollect.setBackgroundResource(R.drawable.noheart);
+                        String deletelinkURL = Config.DELETE_COLLECT_URL_DETAILS+targetURL;
+                        new CollectManager().execute(deletelinkURL);
+                    }
+
+
+
+
             }
         });
 
 
     }
+
+
+
+    public void getCollectStatus(String url){
+
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.CHECK_COLLECT_URL_DETAILS+url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+                        try {
+
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0; i<array.length(); i++){
+
+                                JSONObject object = array.getJSONObject(i);
+
+                                String collectID = object.getString("collectID");
+                                String userID = object.getString("userID");
+                                String productID = object.getString("productID");
+                                String collect_time = object.getString("collect_time");
+                                String responseone = object.getString("response");
+
+                                if (responseone.equals("yes")){
+                                    imgCollect.setBackgroundResource(R.drawable.heart);
+
+                                }else {
+                                    imgCollect.setBackgroundResource(R.drawable.noheart);
+                                }
+
+
+
+
+
+
+
+
+                            }
+
+                        }catch (Exception e){
+
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                System.out.println("this 3 ");
+
+            }
+        });
+
+
+        Volley.newRequestQueue(ProductDetailActivity.this).add(stringRequest);
+
+
+
+
+
+
+    }
+
+
+
+
 }

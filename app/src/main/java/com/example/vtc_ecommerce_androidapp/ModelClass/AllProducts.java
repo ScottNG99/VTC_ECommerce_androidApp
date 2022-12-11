@@ -2,6 +2,7 @@ package com.example.vtc_ecommerce_androidapp.ModelClass;
 
 public class AllProducts {
 
+    private String productID;
     private String pro_name;
     private String pro_price;
     private String pro_score;
@@ -9,6 +10,7 @@ public class AllProducts {
     private String pro_image2;
     private String pro_image3;
     private String pro_desc;
+    private String collectID;
 
 //    public AllProducts(String pro_name, String pro_price, String pro_score, String pro_image1) {
 //        this.pro_name = pro_name;
@@ -18,7 +20,7 @@ public class AllProducts {
 //    }
 
 
-    public AllProducts(String pro_name, String pro_price, String pro_score, String pro_image1, String pro_image2, String pro_image3, String pro_desc) {
+    public AllProducts(String pro_name, String pro_price, String pro_score, String pro_image1, String pro_image2, String pro_image3, String pro_desc,String collectID, String productID) {
         this.pro_name = pro_name;
         this.pro_price = pro_price;
         this.pro_score = pro_score;
@@ -26,6 +28,24 @@ public class AllProducts {
         this.pro_image2 = pro_image2;
         this.pro_image3 = pro_image3;
         this.pro_desc = pro_desc;
+        this.collectID =collectID;
+        this.productID =productID;
+    }
+
+    public String getProductID() {
+        return productID;
+    }
+
+    public void setProductID(String productID) {
+        this.productID = productID;
+    }
+
+    public String getCollectID() {
+        return collectID;
+    }
+
+    public void setCollectID(String collectID) {
+        this.collectID = collectID;
     }
 
     public String getPro_name() {

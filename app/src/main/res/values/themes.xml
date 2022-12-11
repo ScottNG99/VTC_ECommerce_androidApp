@@ -41,4 +41,10 @@
         <item name="colorOnSurfaceVariant">@color/shrine_blue_900</item>
     </style>
 
+
+    <style name="EditProfileTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">#101010</item>
+        <item name="boxStrokeWidth">1dp</item>
+    </style>
+
 </resources>

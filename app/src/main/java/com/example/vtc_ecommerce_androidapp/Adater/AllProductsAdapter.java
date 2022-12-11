@@ -67,7 +67,8 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                 intent.putExtra("pScore",product.getPro_score());
                 intent.putExtra("pIntroduction",product.getPro_image2());
                 intent.putExtra("pdesc",product.getPro_desc());
-
+                intent.putExtra("sendActivity","ListAll");
+                intent.putExtra("PID",product.getProductID());
                 context.startActivity(intent);
 
             }

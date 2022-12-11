@@ -1,101 +1,110 @@
 package com.example.vtc_ecommerce_androidapp.PageView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.vtc_ecommerce_androidapp.Adater.AllProductsAdapter;
-import com.example.vtc_ecommerce_androidapp.Adater.ProductAdapter;
+import com.example.vtc_ecommerce_androidapp.Adater.CollectAdapter;
+import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
 import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
-import com.example.vtc_ecommerce_androidapp.ModelClass.product;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.api.Config;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiresApi(api = Build.VERSION_CODES.M)
-public class ListAllProductActivity extends AppCompatActivity{
+public class CollectActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
+
+    SwipeRefreshLayout swipeRefreshLayout;
     private List<AllProducts> productList;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private AllProductsAdapter adapter;
+    public CollectAdapter adapter;
 
-    private BottomNavigationView buttomNavbar;
+    AllProducts product;
+    int userid;
+    //private static  final String BASE_URL = "http://000/ecommerce/getcollect.php?userID=";
+
+
+
+
+    private ImageView imgMyprofile;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_all_product);
+        setContentView(R.layout.activity_collect);
 
-        recyclerView = findViewById(R.id.recViewAll);
+        imgMyprofile = findViewById(R.id.backmyprofile);
+        swipeRefreshLayout =findViewById(R.id.swipe);
+
+        recyclerView = findViewById(R.id.recViewCollect);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(CollectActivity.this,2);
         recyclerView.setLayoutManager(layoutManager);
 
         //Initializing our product list
         productList = new ArrayList<>();
 
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+
+
 
         //Calling method to get data to fetch data
-        getproduct();
 
 
 
-        buttomNavbar = findViewById(R.id.ButtomnavView);
-
-        buttomNavbar.setSelectedItemId(R.id.all);
 
 
-        buttomNavbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        imgMyprofile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch(item.getItemId())
-                {
-                    case R.id.all:
-
-
-                        return true;
-                    case R.id.home:
-                        startActivity(new Intent(ListAllProductActivity.this,HomePage_Activity.class));
-                        return true;
-
-                    case R.id.user:
-                        startActivity(new Intent(ListAllProductActivity.this,MyProfileActivity.class));
-                        return true;
-
-                }
-                return false;
+            public void onClick(View view) {
+                Intent intent = new Intent(CollectActivity.this,MyProfileActivity.class);
+                startActivity(intent);
             }
         });
 
+
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                getCollect();
+            }
+
+        });
+    }
+    @Override
+    public void onRefresh() {
+        productList.clear();
+        getCollect();
     }
 
-    private void getproduct() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.ALL_PRODUCT_URL,
+    private void getCollect() {
+        swipeRefreshLayout.setRefreshing(true);
+        userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.COLLECT_URL+userid,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -116,19 +125,25 @@ public class ListAllProductActivity extends AppCompatActivity{
                                 String pImageTwo = object.getString("pro_image2");
                                 String pdesc = object.getString("pro_desc");
                                 String price = String.valueOf(pPrice);
-                                String pID = object.getString("productID");
+
+                                String collectID = object.getString("collectID");
 
 
-                                AllProducts product = new AllProducts(pName,price,pScore,pImage,pImageTwo,null,pdesc,null,pID);
+
+                                product = new AllProducts(pName,price,pScore,pImage,pImageTwo,null,pdesc,collectID,null);
                                 productList.add(product);
+
                             }
+
+
+                            adapter = new CollectAdapter(CollectActivity.this,productList);
+                            recyclerView.setAdapter(adapter);
 
                         }catch (Exception e){
 
                         }
 
-                        adapter = new AllProductsAdapter(ListAllProductActivity.this,productList);
-                        recyclerView.setAdapter(adapter);
+                        swipeRefreshLayout.setRefreshing(false);
 
                     }
                 }, new Response.ErrorListener() {
@@ -136,17 +151,15 @@ public class ListAllProductActivity extends AppCompatActivity{
             public void onErrorResponse(VolleyError error) {
 
 
-                Toast.makeText(ListAllProductActivity.this, error.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(CollectActivity.this, error.toString(),Toast.LENGTH_LONG).show();
+                swipeRefreshLayout.setRefreshing(false);
 
             }
         });
 
-        Volley.newRequestQueue(ListAllProductActivity.this).add(stringRequest);
-
-
+        Volley.newRequestQueue(CollectActivity.this).add(stringRequest);
 
     }
-
 
 
 }

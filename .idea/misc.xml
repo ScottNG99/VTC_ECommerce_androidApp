@@ -15,6 +15,8 @@
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/ic_view_pas.xml" value="0.36512820512820515" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/login_input.xml" value="0.36512820512820515" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/quantity_color_bg.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_collect.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.3385416666666667" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_home_page.xml" value="0.25" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_input_student_detail_info.xml" value="0.2667572463768116" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_list_all_product.xml" value="0.3392210144927536" />
@@ -25,6 +27,7 @@
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_regiter_page.xml" value="0.33" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/bottom_add_to_cart.xml" value="0.25271739130434784" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/bottom_navigation.xml" value="0.3351449275362319" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/collect_list_style.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/content_home_page.xml" value="0.21875" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/home_product_item_list.xml" value="0.33" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/product_list_item_layout.xml" value="0.3052536231884058" />
