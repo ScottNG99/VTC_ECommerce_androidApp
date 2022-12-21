@@ -40,26 +40,25 @@
 
     </RelativeLayout>
 
-   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/swipe"
-       android:layout_below="@+id/linear">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear">
 
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/recViewCollect"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recViewCollect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-           android:layout_marginTop="25dp"
-           android:layout_marginBottom="50dp">
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="50dp">
 
-       </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
 
-
-   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 

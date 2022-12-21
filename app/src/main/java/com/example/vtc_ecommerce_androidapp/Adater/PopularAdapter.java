@@ -15,48 +15,47 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.bumptech.glide.Glide;
 import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
-import com.example.vtc_ecommerce_androidapp.ModelClass.product;
 import com.example.vtc_ecommerce_androidapp.PageView.ProductDetailActivity;
 import com.example.vtc_ecommerce_androidapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.ViewHolder> {
+public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHolder> {
 
     private Context context;
 
     List<AllProducts> products = new ArrayList<>();
 
-    public AllProductsAdapter(Context context, List<AllProducts> products) {
+    public PopularAdapter(Context context, List<AllProducts> products) {
         this.context = context;
         this.products = products;
     }
 
     @NonNull
     @Override
-    public AllProductsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.product_list_item_layout,parent,false);
-        AllProductsAdapter.ViewHolder viewHolder = new AllProductsAdapter.ViewHolder(v);
+                .inflate(R.layout.popular_list,parent,false);
+        PopularAdapter.ViewHolder viewHolder = new PopularAdapter.ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AllProductsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         AllProducts product = products.get(position);
 
-        holder.allTxtProductName.setText(product.getPro_name());
-        holder.allTxtProductPrice.setText("$" + product.getPro_price());
-        holder.allTxtProductScore.setText(product.getPro_score());
-        Glide.with(context).load(product.getPro_image1()).into(holder.imageView);
-        Glide.with(context).load(product.getPro_image2()).into(holder.testimg);
+        holder.txtProductName.setText(product.getPro_name());
+        holder.txtProductPrice.setText("$" + product.getPro_price());
+        holder.txtProductScore.setText(product.getPro_score());
+        Glide.with(context).load(product.getPro_image1()).into(holder.homeimageView);
+        Glide.with(context).load(product.getPro_image2()).into(holder.hometestimg);
         Glide.with(context).load(product.getPro_image3()).into(holder.testimgtwo);
-        holder.alltxtdesc.setText(product.getPro_desc());
+        holder.hometxtdesc.setText(product.getPro_desc());
 
 
-        holder.allCardView.setOnClickListener(new View.OnClickListener() {
+        holder.homeCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -71,10 +70,13 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                 intent.putExtra("sendActivity","ListAll");
                 intent.putExtra("PID",product.getProductID());
                 intent.putExtra("pIntroductiontwo",product.getPro_image3());
+                intent.putExtra("sendActivity","Popular");
+
                 context.startActivity(intent);
 
             }
         });
+
     }
 
     @Override
@@ -84,26 +86,27 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView imageView;
-        public TextView allTxtProductName;
-        public TextView allTxtProductPrice;
-        public TextView allTxtProductScore;
-        public CardView allCardView;
-        private TextView alltxtdesc;
-        private ImageView testimg;
-        private ImageView testimgtwo;
+        public ImageView homeimageView;
+        public TextView txtProductName;
+        public TextView txtProductPrice;
+        public TextView txtProductScore;
 
+        public CardView homeCardView;
+        private TextView hometxtdesc;
+        private ImageView hometestimg;
+        private ImageView testimgtwo;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.allimage);
-            allTxtProductName = itemView.findViewById(R.id.allpname);
-            allTxtProductPrice = itemView.findViewById(R.id.allpprice);
-            allTxtProductScore = itemView.findViewById(R.id.allscore);
-            allCardView = itemView.findViewById(R.id.cardview);
-            alltxtdesc = itemView.findViewById(R.id.desc);
-            testimg = itemView.findViewById(R.id.imgtwo);
-            testimgtwo = itemView.findViewById(R.id.imgthree);
+            homeimageView = itemView.findViewById(R.id.imgproduct);
+            txtProductName = itemView.findViewById(R.id.pname);
+            txtProductPrice = itemView.findViewById(R.id.pprice);
+            txtProductScore = itemView.findViewById(R.id.txtscore);
+            homeCardView = itemView.findViewById(R.id.carviewthree);
+            hometxtdesc = itemView.findViewById(R.id.homedesc);
+            hometestimg = itemView.findViewById(R.id.homeImgtwo);
+            testimgtwo = itemView.findViewById(R.id.homeImgthree);
+
         }
     }
 }

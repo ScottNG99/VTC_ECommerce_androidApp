@@ -22,14 +22,19 @@
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_list_all_product.xml" value="0.3392210144927536" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_login_page.xml" value="0.21875" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_main.xml" value="0.22509057971014493" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_my_cart.xml" value="0.353125" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_my_profile.xml" value="0.25271739130434784" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_product_detail.xml" value="0.30027173913043476" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_regiter_page.xml" value="0.33" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/bottom_add_to_cart.xml" value="0.25271739130434784" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/bottom_navigation.xml" value="0.3351449275362319" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/bottom_show_amont.xml" value="0.353125" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/cart_list_style.xml" value="0.353125" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/collect_list_style.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/content_home_page.xml" value="0.21875" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/home_product_item_list.xml" value="0.33" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/popular_list.xml" value="0.353125" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/popular_product_list_style.xml" value="0.353125" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/product_list_item_layout.xml" value="0.3052536231884058" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/quantity_layout_style.xml" value="0.25" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/slider_item.xml" value="0.21105072463768115" />

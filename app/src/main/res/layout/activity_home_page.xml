@@ -20,15 +20,11 @@
             android:layout_marginTop="40dp"
             android:fontFamily="@font/dm_sans"
             android:text="Mail"
-            android:textColor="#3669C9"
+            android:textColor="@color/black"
             android:textFontWeight="700"
             android:textSize="18sp"
             android:id="@+id/hometitle"
             android:layout_centerInParent="true"/>
-
-
-
-
 
 
     </RelativeLayout>
@@ -58,7 +54,7 @@
                 android:layout_below="@+id/hometitle"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="15dp"
-
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/btn_search_color"
@@ -108,24 +104,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Top Deals on Products"
+                    android:text="Popular Products"
                     android:textColor="#0C1A30"
                     android:textSize="20sp"
                     android:fontFamily="@font/dm_sans"
                     android:layout_marginLeft="15dp"
                     android:textFontWeight="700"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="More >"
-                    android:textColor="#0C1A30"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/dm_sans"
-                    android:textFontWeight="500"
-                    android:gravity="right"
-                    android:layout_marginRight="15dp"
-                    android:id="@+id/tomore"/>
+
 
 
 
@@ -145,7 +131,7 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
+                     />
 
 
             </RelativeLayout>

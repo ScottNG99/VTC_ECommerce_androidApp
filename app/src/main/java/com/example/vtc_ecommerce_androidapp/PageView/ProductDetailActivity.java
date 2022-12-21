@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,9 +30,11 @@ import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    private ImageView imgProduct,back,imgIntroduction,imgCollect;
+    private ImageView imgProduct,back,imgIntroduction,imgCollect,imgIntroductionTwo;
     private TextView txtProductNamr,txtScore,txtPrice,txtdescrition,txttotalprice,txttotalQuantity;
     ImageView addQuantity,minusQuantity;
+
+    Button btnaddToCart;
 
     //Default quantity is 1;
     int quantity = 1;
@@ -67,6 +70,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         txttotalQuantity = findViewById(R.id.showQuantity);
         addQuantity = findViewById(R.id.add);
         minusQuantity = findViewById(R.id.minus);
+        btnaddToCart = findViewById(R.id.addCart);
+        imgIntroductionTwo = findViewById(R.id.imgintrotwo);
 
 
 
@@ -78,6 +83,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         String pDesce = intent.getStringExtra("pdesc");
         String pPrice = intent.getStringExtra("pPrice");
         String pid = intent.getStringExtra("PID");
+        String pItroTwo = intent.getStringExtra("pIntroductiontwo");
 
         String getAcitityPage = intent.getStringExtra("sendActivity");
 
@@ -135,6 +141,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             Glide.with(ProductDetailActivity.this).load(pImg).into(imgProduct);
             Glide.with(ProductDetailActivity.this).load(pItro).into(imgIntroduction);
+            Glide.with(ProductDetailActivity.this).load(pItroTwo).into(imgIntroductionTwo);
 
             txtProductNamr.setText(pName);
             txtScore.setText(pScore);
@@ -153,6 +160,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }else if (getAcitityPage.equals("Collect")){
                     Intent intent = new Intent(ProductDetailActivity.this,CollectActivity.class);
                     startActivity(intent);
+                }else if (getAcitityPage.equals("Popular")){
+                    Intent intent = new Intent(ProductDetailActivity.this,HomePage_Activity.class);
+                    startActivity(intent);
                 }
 
 
@@ -163,6 +173,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         String txtUserID = String.valueOf(userid);
         String targetURL = "userID="+txtUserID + "&productID=" +productId;
         getCollectStatus(targetURL);
+
+        System.out.println("send url " + targetURL);
 
 
 
@@ -198,8 +210,32 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
 
 
+        btnaddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addCart(pid);
+            }
+        });
+
+
     }
 
+    private void addCart(String pid) {
+
+        int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+        String productId = pid;
+        String txtUserID = String.valueOf(userid);
+
+        String targetURL = "userID="+txtUserID + "&productID=" +productId + "&goods_count=" + quantity;
+
+        String linkURL = Config.ADD_CART+targetURL;
+
+        new CollectManager().execute(linkURL);
+
+        Toast.makeText(getApplicationContext(),"Add to Cart successful",Toast.LENGTH_LONG).show();
+
+
+    }
 
 
     public void getCollectStatus(String url){

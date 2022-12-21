@@ -15,6 +15,9 @@
         android:theme="@style/Theme.VTC_ECommerce_androidApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PageView.MyCartActivity"
+            android:exported="false" />
+        <activity
             android:name=".PageView.EditProfileActivity"
             android:exported="false" />
         <activity

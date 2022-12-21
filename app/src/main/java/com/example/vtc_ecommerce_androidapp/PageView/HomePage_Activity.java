@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,9 +25,12 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.vtc_ecommerce_androidapp.Adater.CollectAdapter;
+import com.example.vtc_ecommerce_androidapp.Adater.PopularAdapter;
 import com.example.vtc_ecommerce_androidapp.Adater.ProductAdapter;
 import com.example.vtc_ecommerce_androidapp.Adater.SliderAdapter;
 import com.example.vtc_ecommerce_androidapp.MainActivity;
+import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
 import com.example.vtc_ecommerce_androidapp.ModelClass.product;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.api.Config;
@@ -45,7 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class HomePage_Activity extends AppCompatActivity implements RecyclerView.OnScrollChangeListener {
+public class HomePage_Activity extends AppCompatActivity  {
 
     SliderView sliderView;
     SearchView searchView;
@@ -55,15 +59,17 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
             R.drawable.newthree
     };
 
-    private List<product> productList;
+    private List<AllProducts> allProductsList;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private  ProductAdapter adapter;
+    private  PopularAdapter adapter;
 
-    RequestQueue requestQueue;
-    private int requestCount = 1;
+//    RequestQueue requestQueue;
+//    private int requestCount = 1;
 
     private BottomNavigationView buttomNavbar;
+
+    AllProducts product;
 
 
 
@@ -77,24 +83,26 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
 
         //Initializing our product list
-        productList = new ArrayList<>();
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        allProductsList = new ArrayList<>();
+        //requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         //Calling method to get data to fetch data
-        getData();
+        //getData();
+
+        getPopularData();
 
         //Adding an scroll change listener to recyclerview
-        recyclerView.setOnScrollChangeListener(this);
+        //recyclerView.setOnScrollChangeListener(this);
 
         //initializing our adapter
-        adapter = new ProductAdapter(productList, this);
+
 
         //Adding adapter to recyclerview
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setAdapter(adapter);
 
 
 
@@ -138,6 +146,10 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
                     case R.id.user:
                         startActivity(new Intent(HomePage_Activity.this,MyProfileActivity.class));
                         return true;
+
+                    case R.id.cart:
+                        startActivity(new Intent(HomePage_Activity.this,MyCartActivity.class));
+                        return true;
                 }
                 return false;
             }
@@ -147,109 +159,168 @@ public class HomePage_Activity extends AppCompatActivity implements RecyclerView
 
     }
 
+    private void getPopularData() {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.GET_POPULAR_PRODUCT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+                        try {
+
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0; i<array.length(); i++){
+
+                                JSONObject object = array.getJSONObject(i);
+
+                                String pName = object.getString("pro_name");
+                                int pPrice = object.getInt("pro_price");
+                                String pScore = object.getString("pro_score");
+                                String pImage = object.getString("pro_image1");
+                                String pImageTwo = object.getString("pro_image2");
+                                String pdesc = object.getString("pro_desc");
+                                String pID = object.getString("productID");
+                                String pImageThree = object.getString("pro_image3");
+                                String price = String.valueOf(pPrice);
+
+
+
+
+
+                                product = new AllProducts(pName,price,pScore,pImage,pImageTwo,pImageThree,pdesc,null,pID);
+                                allProductsList.add(product);
+
+                            }
+
+
+                            adapter = new PopularAdapter(HomePage_Activity.this,allProductsList);
+                            recyclerView.setAdapter(adapter);
+
+                        }catch (Exception e){
+
+                        }
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+                Toast.makeText(HomePage_Activity.this, error.toString(),Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+
+        Volley.newRequestQueue(HomePage_Activity.this).add(stringRequest);
+    }
 
 
     //This method will get data from the web api
-    private JsonArrayRequest getDataFromServer(int requestCount) {
-
-
-
-
-        //JsonArrayRequest of volley
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,Config.DATA_URL + String.valueOf(requestCount),null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        //Calling method parseData to parse the json response
-                        parseData(response);
-                        //Hiding the progressbar
-
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        //If an error occurs that means end of the list has reached
-                        Toast.makeText(HomePage_Activity.this, "No More Items Available", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-
-        //Returning the request
-        return jsonArrayRequest;
-    }
-
-
-
-
-
+//    private JsonArrayRequest getDataFromServer(int requestCount) {
+//
+//
+//
+//
+//        //JsonArrayRequest of volley
+//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,Config.DATA_URL + String.valueOf(requestCount),null,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        //Calling method parseData to parse the json response
+//                        parseData(response);
+//                        //Hiding the progressbar
+//
+//
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//
+//                        //If an error occurs that means end of the list has reached
+//                        Toast.makeText(HomePage_Activity.this, "No More Items Available", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//
+//
+//        //Returning the request
+//        return jsonArrayRequest;
+//    }
 
 
 
 
 
 
-    private void getData() {
-        //Adding the method to the queue by calling the method getDataFromServer
-        requestQueue.add(getDataFromServer(requestCount));
-        //Incrementing the request counter
-        requestCount++;
-    }
 
 
 
 
 
-    private void parseData(JSONArray array) {
-        for (int i = 0; i < array.length(); i++) {
-            //Creating the superhero object
-            product product = new product();
-            JSONObject json = null;
-            try {
-                //Getting json
-                json = array.getJSONObject(i);
-
-                //Adding data to the superhero object
-                product.setPro_image1(json.getString(Config.TAG_IMAGE_URL));
-                product.setPro_name(json.getString(Config.TAG_PRODUCTNAME));
-                product.setPro_price(json.getString(Config.TAG_PRICE));
-                product.setPro_score(json.getString(Config.TAG_SCORE));
-
-                System.out.println("hget img  " +  json.getString(Config.TAG_IMAGE_URL));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            //Adding the superhero object to the list
-            //productList.clear();
-            productList.add(product);
-        }
-
-        //Notifying the adapter that data has been added or changed
-        adapter.notifyDataSetChanged();
+//    private void getData() {
+//        //Adding the method to the queue by calling the method getDataFromServer
+//        requestQueue.add(getDataFromServer(requestCount));
+//        //Incrementing the request counter
+//        requestCount++;
+//    }
 
 
-    }
 
-    private boolean isLastItemDisplaying(RecyclerView recyclerView) {
-        if (recyclerView.getAdapter().getItemCount() != 0) {
-            int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
-            if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() - 1)
-                return true;
-        }
-        return false;
-    }
 
-    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        //Ifscrolled at last then
-        if (isLastItemDisplaying(recyclerView)) {
-            //Calling the method getdata again
-            getData();
-        }
-    }
+
+//    private void parseData(JSONArray array) {
+//        for (int i = 0; i < array.length(); i++) {
+//            //Creating the superhero object
+//            product product = new product();
+//            JSONObject json = null;
+//            try {
+//                //Getting json
+//                json = array.getJSONObject(i);
+//
+//                //Adding data to the superhero object
+//                product.setPro_image1(json.getString(Config.TAG_IMAGE_URL));
+//                product.setPro_name(json.getString(Config.TAG_PRODUCTNAME));
+//                product.setPro_price(json.getString(Config.TAG_PRICE));
+//                product.setPro_score(json.getString(Config.TAG_SCORE));
+//
+//                System.out.println("hget img  " +  json.getString(Config.TAG_IMAGE_URL));
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            //Adding the superhero object to the list
+//            //productList.clear();
+//            productList.add(product);
+//        }
+//
+//        //Notifying the adapter that data has been added or changed
+//        adapter.notifyDataSetChanged();
+//
+//
+//    }
+
+//    private boolean isLastItemDisplaying(RecyclerView recyclerView) {
+//        if (recyclerView.getAdapter().getItemCount() != 0) {
+//            int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+//            if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() - 1)
+//                return true;
+//        }
+//        return false;
+//    }
+//
+//    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//        //Ifscrolled at last then
+//        if (isLastItemDisplaying(recyclerView)) {
+//            //Calling the method getdata again
+//            getData();
+//        }
+//    }
 
 
 

@@ -90,6 +90,10 @@ public class MyProfileActivity extends AppCompatActivity {
                         startActivity(new Intent(MyProfileActivity.this,ListAllProductActivity.class));
                         return true;
 
+                    case R.id.cart:
+                        startActivity(new Intent(MyProfileActivity.this,MyCartActivity.class));
+                        return true;
+
                 }
                 return false;
             }

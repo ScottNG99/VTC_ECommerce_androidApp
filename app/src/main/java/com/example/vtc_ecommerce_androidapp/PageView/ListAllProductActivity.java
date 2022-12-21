@@ -87,6 +87,10 @@ public class ListAllProductActivity extends AppCompatActivity{
                         startActivity(new Intent(ListAllProductActivity.this,MyProfileActivity.class));
                         return true;
 
+                    case R.id.cart:
+                        startActivity(new Intent(ListAllProductActivity.this,MyCartActivity.class));
+                        return true;
+
                 }
                 return false;
             }
@@ -114,12 +118,16 @@ public class ListAllProductActivity extends AppCompatActivity{
                                 String pScore = object.getString("pro_score");
                                 String pImage = object.getString("pro_image1");
                                 String pImageTwo = object.getString("pro_image2");
+                                String pImageThree = object.getString("pro_image3");
                                 String pdesc = object.getString("pro_desc");
                                 String price = String.valueOf(pPrice);
                                 String pID = object.getString("productID");
 
 
-                                AllProducts product = new AllProducts(pName,price,pScore,pImage,pImageTwo,null,pdesc,null,pID);
+
+
+
+                                AllProducts product = new AllProducts(pName,price,pScore,pImage,pImageTwo,pImageThree,pdesc,null,pID);
                                 productList.add(product);
                             }
 

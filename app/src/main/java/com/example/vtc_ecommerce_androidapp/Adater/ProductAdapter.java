@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -66,6 +68,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         public TextView txtProductPrice;
         public TextView txtProductScore;
 
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -73,6 +77,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             txtProductName = itemView.findViewById(R.id.pname);
             txtProductPrice = itemView.findViewById(R.id.pprice);
             txtProductScore = itemView.findViewById(R.id.txtscore);
+
+
 
         }
     }

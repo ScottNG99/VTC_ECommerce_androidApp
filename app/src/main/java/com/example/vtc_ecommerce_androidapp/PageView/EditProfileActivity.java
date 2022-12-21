@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -43,6 +44,9 @@ public class EditProfileActivity extends AppCompatActivity {
         imgback = findViewById(R.id.imgbackmyprofile);
         imgcheck =findViewById(R.id.confirmBtn);
         txtUserName =findViewById(R.id.edtUsername);
+
+
+
 
 
 
@@ -104,6 +108,11 @@ public class EditProfileActivity extends AppCompatActivity {
         final String compus = CampusAutoTV.getText().toString();
         int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
         final String txtUserID = String.valueOf(userid);
+
+//        if(TextUtils.isEmpty(name)){
+//            txtUserName.setText(SharedPrefManager.getInstance(this).getStudent().getStudent_name());
+//
+//        }
 
         class EditProfile extends AsyncTask<Void, Void, String>{
 

@@ -109,7 +109,7 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
             collectTxtProductName = itemView.findViewById(R.id.collectname);
             collectTxtProductPrice = itemView.findViewById(R.id.collectprice);
             collectTxtProductScore = itemView.findViewById(R.id.collectscore);
-            collectCardView = itemView.findViewById(R.id.carviewthree);
+            collectCardView = itemView.findViewById(R.id.cardviewtwo);
             collecttxtdesc = itemView.findViewById(R.id.collectdesc);
             collecttestimg = itemView.findViewById(R.id.collectimgtwo);
             collectHeart = itemView.findViewById(R.id.collecticon);

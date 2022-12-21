@@ -95,6 +95,12 @@
                         android:id="@+id/imgtwo"
                         android:visibility="gone"/>
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imgthree"
+                        android:visibility="gone"/>
+
                 </LinearLayout>
 
 
