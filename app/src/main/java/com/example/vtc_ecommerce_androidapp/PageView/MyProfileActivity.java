@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,20 +34,24 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private TextView txtNikeName,txtstudentNO;
     private BottomNavigationView buttomNavbar;
-    private ImageView btnEdit,btnlogot,btnMyCollection;
+    //private ImageView btnEdit,btnlogot,btnMyCollection;
+    private LinearLayout btnEdit,btnlogot,btnMyCollection,btnMyorder;
 
     Student student;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile);
+        setContentView(R.layout.activity_user_profile_page);
 
         txtNikeName = findViewById(R.id.userNikeName);
         txtstudentNO = findViewById(R.id.userCND);
         btnlogot = findViewById(R.id.tologout);
         btnEdit = findViewById(R.id.toedit);
         btnMyCollection = findViewById(R.id.tomycollection);
+        btnMyorder = findViewById(R.id.intendOrderPage);
+
+
 
 
         buttomNavbar = findViewById(R.id.ButtomnavView);
@@ -69,6 +74,15 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyProfileActivity.this,CollectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        btnMyorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyProfileActivity.this,OrderPageActivity.class);
                 startActivity(intent);
             }
         });

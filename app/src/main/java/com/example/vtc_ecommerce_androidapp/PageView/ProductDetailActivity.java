@@ -19,6 +19,8 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.vtc_ecommerce_androidapp.Manager.CollectManager;
 import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
+import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
+import com.example.vtc_ecommerce_androidapp.ModelClass.OrderProduct;
 import com.example.vtc_ecommerce_androidapp.ModelClass.TestRespon;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.api.Config;
@@ -26,6 +28,7 @@ import com.example.vtc_ecommerce_androidapp.api.Config;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
@@ -34,7 +37,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private TextView txtProductNamr,txtScore,txtPrice,txtdescrition,txttotalprice,txttotalQuantity;
     ImageView addQuantity,minusQuantity;
 
-    Button btnaddToCart;
+    private Button btnaddToCart,btntoCheckOut;
 
     //Default quantity is 1;
     int quantity = 1;
@@ -72,6 +75,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         minusQuantity = findViewById(R.id.minus);
         btnaddToCart = findViewById(R.id.addCart);
         imgIntroductionTwo = findViewById(R.id.imgintrotwo);
+        btntoCheckOut = findViewById(R.id.tobuy);
 
 
 
@@ -86,6 +90,33 @@ public class ProductDetailActivity extends AppCompatActivity {
         String pItroTwo = intent.getStringExtra("pIntroductiontwo");
 
         String getAcitityPage = intent.getStringExtra("sendActivity");
+
+
+
+        //To Check Out a product
+        btntoCheckOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                List<OrderProduct> orderProductList;
+//                orderProductList = new ArrayList<>();
+//
+//                OrderProduct orderProduct = new OrderProduct(pName,pPrice,pImg,String.valueOf(quantity));
+//                orderProductList.add(orderProduct);
+
+                Intent intentCheckOut = new Intent(ProductDetailActivity.this,CheckOutActivity.class);
+                intentCheckOut.putExtra("checkIntent",1);
+                intentCheckOut.putExtra("productName",pName);
+                intentCheckOut.putExtra("productPrice",pPrice);
+                intentCheckOut.putExtra("productImg",pImg);
+                intentCheckOut.putExtra("productQty",String.valueOf(quantity));
+                intentCheckOut.putExtra("productID",pid);
+
+                startActivityForResult(intentCheckOut,0);
+
+            }
+        });
+
 
 
 

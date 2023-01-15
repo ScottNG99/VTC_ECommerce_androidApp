@@ -2,6 +2,7 @@ package com.example.vtc_ecommerce_androidapp.Adater;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -89,6 +91,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 String targetURL = Config.DELETE_CART + "userID="+txtUserID + "&cartID=" +cartID;
                 new CollectManager().execute(targetURL);
                 Toast.makeText(context,"successfully removed",Toast.LENGTH_LONG).show();
+
+                String delete = "msg";
+
+                Intent intent = new Intent("Deletemessage");
+                //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
+                intent.putExtra("msg",delete);
+
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         });
 

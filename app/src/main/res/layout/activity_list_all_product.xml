@@ -7,14 +7,99 @@
 
     tools:context=".PageView.ListAllProductActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recViewAll"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/lin11"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Result"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:fontFamily="@font/dm_sans"
+            android:textFontWeight="500"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:layout_marginTop="25dp">
+        android:id="@+id/filerliner"
+        android:layout_below="@+id/lin11"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnsort"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:textAlignment="center"
+            android:text="Sort"
+            android:layout_marginTop="5dp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/white"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_sort_24"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            app:iconGravity="textStart"
+
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnfiltersort"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:textAlignment="center"
+            android:text="Filter"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            app:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:icon="@drawable/ic_baseline_filter_alt_24"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            app:iconGravity="textStart"
+            android:layout_marginTop="5dp"
+
+             />
+
+
+    </LinearLayout>
+
+
+
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipemyallproduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/filerliner"
+        android:layout_marginBottom="100dp"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recViewAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <include layout="@layout/bottom_navigation"></include>
 

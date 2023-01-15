@@ -1,5 +1,7 @@
 package com.example.vtc_ecommerce_androidapp.ModelClass;
 
+import java.util.Comparator;
+
 public class AllProducts {
 
     private String productID;
@@ -20,7 +22,7 @@ public class AllProducts {
 //    }
 
 
-    public AllProducts(String pro_name, String pro_price, String pro_score, String pro_image1, String pro_image2, String pro_image3, String pro_desc,String collectID, String productID) {
+    public AllProducts(String pro_name, String pro_price, String pro_score, String pro_image1, String pro_image2, String pro_image3, String pro_desc, String collectID, String productID) {
         this.pro_name = pro_name;
         this.pro_price = pro_price;
         this.pro_score = pro_score;
@@ -28,8 +30,8 @@ public class AllProducts {
         this.pro_image2 = pro_image2;
         this.pro_image3 = pro_image3;
         this.pro_desc = pro_desc;
-        this.collectID =collectID;
-        this.productID =productID;
+        this.collectID = collectID;
+        this.productID = productID;
     }
 
     public String getProductID() {
@@ -103,4 +105,72 @@ public class AllProducts {
     public void setPro_desc(String pro_desc) {
         this.pro_desc = pro_desc;
     }
+
+    @Override
+    public String toString() {
+        return "AllProducts{" +
+                "productID='" + productID + '\'' +
+                ", pro_name='" + pro_name + '\'' +
+                ", pro_price='" + pro_price + '\'' +
+                ", pro_score='" + pro_score + '\'' +
+                ", pro_image1='" + pro_image1 + '\'' +
+                ", pro_image2='" + pro_image2 + '\'' +
+                ", pro_image3='" + pro_image3 + '\'' +
+                ", pro_desc='" + pro_desc + '\'' +
+                ", collectID='" + collectID + '\'' +
+                '}';
+    }
+
+//    @Override
+//    public int compareTo(AllProducts allProducts) {
+//        int compareage = Integer.parseInt(((AllProducts)allProducts).getPro_price());
+//
+//        //  For Ascending order
+//        return Integer.parseInt(pro_price) - compareage;
+//    }
+
+    public static Comparator<AllProducts> ProductPrice = new Comparator<AllProducts>() {
+
+        // Method
+        public int compare(AllProducts p1, AllProducts p2) {
+
+            int price1 = Integer.parseInt(p1.getPro_price());
+            int price2 = Integer.parseInt(p2.getPro_price());
+
+
+            return price1 - price2;
+
+        }
+    };
+
+
+    public static Comparator<AllProducts> ProductScore = new Comparator<AllProducts>() {
+
+        // Method
+        public int compare(AllProducts s1, AllProducts s2) {
+
+            double score1 = Double.parseDouble(s1.getPro_score());
+            double score2 = Double.parseDouble(s2.getPro_score());
+
+
+            return Double.compare(score2,score1);
+
+        }
+    };
+
+    public static Comparator<AllProducts> ProductHighestPrice = new Comparator<AllProducts>() {
+
+        // Method
+        public int compare(AllProducts p1, AllProducts p2) {
+
+            int price1 = Integer.parseInt(p1.getPro_price());
+            int price2 = Integer.parseInt(p2.getPro_price());
+
+
+            return price2 - price1;
+
+        }
+    };
+
 }
+

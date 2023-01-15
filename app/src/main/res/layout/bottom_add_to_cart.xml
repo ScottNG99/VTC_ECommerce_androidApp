@@ -47,11 +47,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_addcart"
-            android:text="Add to Cart"
+            android:text="Check Out"
+            android:layout_weight="1"
             android:textColor="@color/white"
             android:layout_gravity="center"
+            android:id="@+id/tobuy"
+            android:textAllCaps="false"
+            android:layout_marginRight="7dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_addcart"
+            android:text="Add to Cart"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
             android:id="@+id/addCart"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="10dp"/>
 
 
 

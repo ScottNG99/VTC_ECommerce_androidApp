@@ -2,14 +2,19 @@ package com.example.vtc_ecommerce_androidapp.PageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +29,7 @@ import com.example.vtc_ecommerce_androidapp.Adater.CollectAdapter;
 import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
 import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
 import com.example.vtc_ecommerce_androidapp.ModelClass.Cart;
+import com.example.vtc_ecommerce_androidapp.ModelClass.OrderProduct;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.api.Config;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,11 +52,17 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
     private TextView txtTotlalPrice;
     private BottomNavigationView buttomNavbar;
 
-
-
+  
     int userid;
 
     Cart cart;
+
+    OrderProduct orderProduct;
+    ArrayList<OrderProduct> orderProductListss;
+    int intentAmount;
+    int intentGoodAmount = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +84,13 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
         buttomNavbar = findViewById(R.id.ButtomnavView);
 
         buttomNavbar.setSelectedItemId(R.id.cart);
+
+        orderProductListss = new ArrayList<>();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("Deletemessage"));
+
+
 
         buttomNavbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -98,6 +117,23 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
             }
         });
 
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyCartActivity.this,CheckOutActivity.class);
+
+                intent.putExtra("OrderAllDetails",orderProduct);
+                intent.putExtra("checkIntent",2);
+                intent.putExtra("orderList",orderProductListss);
+                intent.putExtra("OrderAmount",intentAmount);
+                intent.putExtra("OrderGoodsAmount",intentGoodAmount);
+                startActivity(intent);
+
+
+
+            }
+        });
+
 
 
 
@@ -114,6 +150,31 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
     }
 
 
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String getmsg = intent.getStringExtra("msg");
+
+            if (getmsg == null){
+
+            }else {
+                cartList.clear();
+                getCart();
+            }
+
+
+        }
+    };
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //利用LocalBroadcastManager的接口，进行反注册
+        LocalBroadcastManager.getInstance(this)
+                .unregisterReceiver(mMessageReceiver);
+    }
+
+
 
     @Override
     public void onRefresh() {
@@ -122,6 +183,7 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
     }
 
     private void getCart() {
+
 
         swipeRefreshLayout.setRefreshing(true);
         userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
@@ -133,13 +195,17 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
                         int showTotalAmount = 0;
 
 
+
                         try {
 
                             JSONArray array = new JSONArray(response);
+
+
                             for (int i = 0; i<array.length(); i++){
 
                                 JSONObject object = array.getJSONObject(i);
 
+                                String pPID = object.getString("productID");
                                 String pName = object.getString("pro_name");
                                 int pPrice = object.getInt("pro_price");
                                 String pImage = object.getString("pro_image1");
@@ -149,13 +215,22 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
 
                                 int counts = Integer.valueOf(goods_count);
 
+                                intentGoodAmount = intentGoodAmount + counts;
+
                                 int totalprice = pPrice * counts;
                                 showTotalAmount += totalprice;
 
+                                //setOrder(pName,price,pImage,goods_count);
 
 
                                 cart = new Cart(pName,price,pImage,cartID,goods_count);
                                 cartList.add(cart);
+
+                                orderProduct = new OrderProduct(pName,price,pImage,goods_count,pPID);
+                                orderProductListss.add(orderProduct);
+
+
+
 
                             }
 
@@ -166,9 +241,9 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
                             adapter = new CartAdapter(MyCartActivity.this,cartList);
                             recyclerView.setAdapter(adapter);
 
+                            intentAmount = showTotalAmount;
 
 
-                            System.out.println("can show price " + showTotalAmount);
                             txtTotlalPrice.setText("$" + String.valueOf(showTotalAmount));
 
 
@@ -195,6 +270,8 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
 
 
     }
+
+
 
 
 }

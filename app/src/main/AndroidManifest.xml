@@ -15,6 +15,15 @@
         android:theme="@style/Theme.VTC_ECommerce_androidApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PageView.OrderPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PageView.PaymentPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PageView.CheckOutActivity"
+            android:exported="false" />
+        <activity
             android:name=".PageView.MyCartActivity"
             android:exported="false" />
         <activity
