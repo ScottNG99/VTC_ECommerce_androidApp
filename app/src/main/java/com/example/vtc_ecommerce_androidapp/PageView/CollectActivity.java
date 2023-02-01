@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,6 +39,7 @@ public class CollectActivity extends AppCompatActivity implements SwipeRefreshLa
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     public CollectAdapter adapter;
+    private LinearLayout nodataConllectshow;
 
     AllProducts product;
     int userid;
@@ -54,6 +56,8 @@ public class CollectActivity extends AppCompatActivity implements SwipeRefreshLa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect);
+
+        nodataConllectshow = findViewById(R.id.LinearnodataConllect);
 
         imgMyprofile = findViewById(R.id.backmyprofile);
         swipeRefreshLayout =findViewById(R.id.swipe);
@@ -133,6 +137,12 @@ public class CollectActivity extends AppCompatActivity implements SwipeRefreshLa
                                 product = new AllProducts(pName,price,pScore,pImage,pImageTwo,null,pdesc,collectID,null);
                                 productList.add(product);
 
+                            }
+
+                            if (productList == null || productList.isEmpty()){
+                                nodataConllectshow.setVisibility(View.VISIBLE);
+                            }else {
+                                nodataConllectshow.setVisibility(View.GONE);
                             }
 
 

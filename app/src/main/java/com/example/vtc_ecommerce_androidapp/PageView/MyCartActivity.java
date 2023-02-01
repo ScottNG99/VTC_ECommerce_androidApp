@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,8 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
     private TextView txtTotlalPrice;
     private BottomNavigationView buttomNavbar;
 
+    private LinearLayout nodataCartshow;
+
   
     int userid;
 
@@ -68,6 +71,8 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_cart);
+
+        nodataCartshow = findViewById(R.id.LinearnodataCart);
 
         swipeRefreshLayout =findViewById(R.id.swipetwo);
         checkout = findViewById(R.id.toCheckOut);
@@ -235,7 +240,11 @@ public class MyCartActivity extends AppCompatActivity implements SwipeRefreshLay
                             }
 
 
-
+                            if (cartList == null || cartList.isEmpty()){
+                                nodataCartshow.setVisibility(View.VISIBLE);
+                            }else {
+                                nodataCartshow.setVisibility(View.GONE);
+                            }
 
 
                             adapter = new CartAdapter(MyCartActivity.this,cartList);

@@ -14,12 +14,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.vtc_ecommerce_androidapp.Adater.OrderProductAdapter;
 import com.example.vtc_ecommerce_androidapp.Manager.CollectManager;
 import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
 import com.example.vtc_ecommerce_androidapp.ModelClass.OrderProduct;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.api.Config;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +54,7 @@ public class CheckOutActivity extends AppCompatActivity {
     private ArrayList<String> intentPaymentQty;
     private ArrayList<String> intentPaymentProductTotalAmount;
 
-
+    String getOrderID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +111,7 @@ public class CheckOutActivity extends AppCompatActivity {
 
                 String getrec=AddressAutoTV.getText().toString();
 
+
                 if (getrec.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Please select your shipping address!",Toast.LENGTH_SHORT).show();
                 }else {
@@ -110,21 +119,31 @@ public class CheckOutActivity extends AppCompatActivity {
                     if (sendAproductAamount == 0){
                         apiAmount = sendproductsAamount;
                         CreateOrder(apiAmount,getrec);
+
+
+
                     }else {
                         apiAmount = sendAproductAamount;
                         CreateOrder(apiAmount,getrec);
+
+
+
                     }
 
 
+//                    System.out.println("get order id fre " + getOrderID);
+//
+//                    Intent intent3 = new Intent(CheckOutActivity.this,PaymentPageActivity.class);
+//                    intent3.putExtra("sendAproductAamount" , sendAproductAamount);
+//                    intent3.putExtra("sendproductsAamount",sendproductsAamount);
+//                    intent3.putStringArrayListExtra("productIDList",productIDList);
+//                    intent3.putStringArrayListExtra("productTotalPrice",intentPaymentProductTotalAmount);
+//                    intent3.putStringArrayListExtra("productQTY",intentPaymentQty);
+//                    intent3.putExtra("sendMsgToBuy","paided");
+//                    intent3.putExtra("sendOrderID",getOrderID);
+//                    startActivityForResult(intent3,0);
 
-                    Intent intent3 = new Intent(CheckOutActivity.this,PaymentPageActivity.class);
-                    intent3.putExtra("sendAproductAamount" , sendAproductAamount);
-                    intent3.putExtra("sendproductsAamount",sendproductsAamount);
-                    intent3.putStringArrayListExtra("productIDList",productIDList);
-                    intent3.putStringArrayListExtra("productTotalPrice",intentPaymentProductTotalAmount);
-                    intent3.putStringArrayListExtra("productQTY",intentPaymentQty);
 
-                    startActivityForResult(intent3,0);
 
                 }
 
@@ -163,7 +182,7 @@ public class CheckOutActivity extends AppCompatActivity {
             String pQty = intent.getStringExtra("productQty");
             String pid = intent.getStringExtra("productID");
 
-            System.out.println("show get qty " + pQty);
+
 
             OrderProduct orderProduct = new OrderProduct(pName,pPrice,pImg,pQty,pid);
             orderProductList.add(orderProduct);
@@ -221,25 +240,122 @@ public class CheckOutActivity extends AppCompatActivity {
 
     }
 
+
     private void CreateOrder(int totalAmount, String deliveryAdreess) {
 
         int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
-        String orderStatus = "2"; //pending receiv
+        String orderStatus = "1"; //unpaid
         String TotalQty = String.valueOf(apiGoodsAmount);
 
 
 
         String link = "userID="+userid + "&total_price="+totalAmount + "&order_status="+orderStatus + "&product_delivery="+deliveryAdreess + "&quantity="+TotalQty;
-
+        System.out.println("this step 1");
 
 
         String url = Config.ADD_ORDER + link;
         new CollectManager().execute(url);
 
+        getApiOrderID();
+
 
 
 
     }
+
+
+    private void getApiOrderID() {
+
+        int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+        String path = "userID=" + String.valueOf(userid);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.GET_ORDERID+path,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+                        try {
+
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0; i<array.length(); i++){
+
+                                JSONObject object = array.getJSONObject(i);
+
+                                String orderid = object.getString("orderID");
+
+                                getOrderID = orderid;
+                                System.out.println("this step 2 " + getOrderID);
+
+
+                            }
+
+
+                            createOrderLine(getOrderID);
+
+
+
+
+
+                        }catch (Exception e){
+
+                        }
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+                Toast.makeText(CheckOutActivity.this, error.toString(),Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+
+        Volley.newRequestQueue(CheckOutActivity.this).add(stringRequest);
+
+
+
+
+
+
+    }
+
+
+    private void createOrderLine(String orderID) {
+
+        for (int n=0;n<productIDList.size();n++){
+
+            String link = "productID="+productIDList.get(n) + "&pro_total_price="+intentPaymentProductTotalAmount.get(n) + "&pro_num="+intentPaymentQty.get(n) + "&orderID="+orderID;
+
+
+
+            String url = Config.ADD_ORDER_LINE + link;
+            new CollectManager().execute(url);
+
+            System.out.println("get order id fre " + orderID);
+
+            Intent intent3 = new Intent(CheckOutActivity.this,PaymentPageActivity.class);
+            intent3.putExtra("sendAproductAamount" , sendAproductAamount);
+            intent3.putExtra("sendproductsAamount",sendproductsAamount);
+            intent3.putStringArrayListExtra("productIDList",productIDList);
+            intent3.putStringArrayListExtra("productTotalPrice",intentPaymentProductTotalAmount);
+            intent3.putStringArrayListExtra("productQTY",intentPaymentQty);
+            intent3.putExtra("sendMsgToBuy","paided");
+            intent3.putExtra("sendOrderID",orderID);
+            startActivityForResult(intent3,0);
+
+
+
+        }
+
+
+    }
+
+
 
 
     private ArrayList<String> getAddressList() {
@@ -247,12 +363,14 @@ public class CheckOutActivity extends AppCompatActivity {
 
 
         campusAddrss = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getStudentID();
-        userAddress = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getStudent_name();
-
+        //userAddress = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getStudent_name();
+        userAddress = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getStudent_course();
 
         compus.add(campusAddrss);
         compus.add(userAddress);
 
         return compus;
     }
+
+
 }

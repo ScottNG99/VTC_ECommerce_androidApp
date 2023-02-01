@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,8 +48,10 @@ public class OrderPageActivity extends AppCompatActivity implements SwipeRefresh
 
     private ImageView btnimageView;
 
-    TextView processingtxt,receivedtxt;
-    View view1,view3;
+    private LinearLayout nodatashow;
+
+    TextView processingtxt,receivedtxt,unpaidtxt;
+    View view1,view3,view0;
 
 
     Order order;
@@ -61,16 +64,23 @@ public class OrderPageActivity extends AppCompatActivity implements SwipeRefresh
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
 
+        nodatashow = findViewById(R.id.Linearnodata);
+
         processingtxt = findViewById(R.id.txtprocessing);
 
         receivedtxt = findViewById(R.id.txtreceived);
         view1 = findViewById(R.id.viewline1);
+
+        unpaidtxt = findViewById(R.id.txtunpaid);
+        view0 = findViewById(R.id.viewline0);
 
         view3 = findViewById(R.id.viewline3);
 
         processingtxt.setOnClickListener(this);
 
         receivedtxt.setOnClickListener(this);
+
+        unpaidtxt.setOnClickListener(this);
 
 
         swipeRefreshLayout = findViewById(R.id.swipemyorder);
@@ -212,9 +222,9 @@ public class OrderPageActivity extends AppCompatActivity implements SwipeRefresh
         swipeRefreshLayout.setRefreshing(true);
         userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
 
-        String link = "userID="+userid + "&order_status="+status;
+        String link = userid + "&order_status="+status;
         String url = Config.GET_ORDER_LIST + link;
-        System.out.println("show user id " + url);
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -244,11 +254,19 @@ public class OrderPageActivity extends AppCompatActivity implements SwipeRefresh
                                 String orderlineID = object.getString("orderlineID");
                                 String orderID = object.getString("orderID");
 
-
+                                System.out.println("order isisi" + orderID);
 
                                 order = new Order(pName,price,pImage,pro_num,pro_status,orderlineID,orderID);
                                 orderList.add(order);
 
+
+
+                            }
+
+                            if (orderList == null || orderList.isEmpty()){
+                                nodatashow.setVisibility(View.VISIBLE);
+                            }else {
+                                nodatashow.setVisibility(View.GONE);
                             }
 
 
@@ -300,6 +318,9 @@ public class OrderPageActivity extends AppCompatActivity implements SwipeRefresh
                 receivedtxt.setTextColor(Color.parseColor("#8E96A5"));
                 view3.setBackgroundColor(Color.parseColor("#dfdfdf"));
 
+                unpaidtxt.setTextColor(Color.parseColor("#8E96A5"));
+                view0.setBackgroundColor(Color.parseColor("#dfdfdf"));
+
                 orderList.clear();
                 getOrders("2");
 
@@ -314,8 +335,32 @@ public class OrderPageActivity extends AppCompatActivity implements SwipeRefresh
                 processingtxt.setTextColor(Color.parseColor("#8E96A5"));
                 view1.setBackgroundColor(Color.parseColor("#dfdfdf"));
 
+                unpaidtxt.setTextColor(Color.parseColor("#8E96A5"));
+                view0.setBackgroundColor(Color.parseColor("#dfdfdf"));
+
                 orderList.clear();
                 getOrders("4");
+
+                break;
+
+            case R.id.txtunpaid:
+
+                unpaidtxt.setTextColor(Color.parseColor("#F36D31"));
+                view0.setBackgroundColor(Color.parseColor("#F36D31"));
+
+
+                processingtxt.setTextColor(Color.parseColor("#8E96A5"));
+                view1.setBackgroundColor(Color.parseColor("#dfdfdf"));
+
+                receivedtxt.setTextColor(Color.parseColor("#8E96A5"));
+                view3.setBackgroundColor(Color.parseColor("#dfdfdf"));
+
+                orderList.clear();
+                getOrders("1");
+
+                System.out.println("clickedsss");
+
+                break;
 
 
         }

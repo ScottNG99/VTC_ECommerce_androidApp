@@ -173,6 +173,8 @@ public class ListAllProductActivity extends AppCompatActivity implements SwipeRe
 
     }
 
+
+
     public BroadcastReceiver SortMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -367,4 +369,8 @@ public class ListAllProductActivity extends AppCompatActivity implements SwipeRe
         getproduct("0",null,null);
 
     }
+
+
+
+
 }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.example.vtc_ecommerce_androidapp.Manager.CollectManager;
 import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
 import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
 import com.example.vtc_ecommerce_androidapp.ModelClass.Order;
+import com.example.vtc_ecommerce_androidapp.PageView.PaymentPageActivity;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.api.Config;
 import com.google.android.material.button.MaterialButton;
@@ -71,14 +73,32 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         if (getStatus.equals("2")){
             holder.orderproductstatus.setText("waiting");
             holder.orderproductstatus.setTextColor(Color.parseColor("#F36D31"));
+
+            holder.btnreceived.setVisibility(View.GONE);
+            holder.btncancel.setVisibility(View.VISIBLE);
+
         } else if (getStatus.equals("4")){
             holder.orderproductstatus.setText("Received");
             holder.orderproductstatus.setTextColor(Color.parseColor("#3EA7FE"));
 
             holder.btnreceived.setVisibility(View.GONE);
+            holder.btncancel.setVisibility(View.VISIBLE);
             holder.btncancel.setText("Cancel Record");
 
+        }else if (getStatus.equals("1")){
+            holder.btncancel.setVisibility(View.GONE);
+            holder.btnreceived.setVisibility(View.GONE);
+            holder.btntopay.setVisibility(View.VISIBLE);
+            holder.orderproductstatus.setText("Unpaid");
+            holder.orderproductstatus.setTextColor(Color.parseColor("#92A3B6"));
+
+        }else if (getStatus.equals("3")){
+            holder.orderproductstatus.setText("Shipped");
+            holder.orderproductstatus.setTextColor(Color.parseColor("#71CB4F"));
+            holder.btncancel.setVisibility(View.GONE);
         }
+
+
 
         int userid = SharedPrefManager.getInstance(context.getApplicationContext()).getStudent().getUserID();
         String txtUserID = String.valueOf(userid);
@@ -127,6 +147,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             }
         });
 
+        holder.btntopay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, PaymentPageActivity.class);
+                intent.putExtra("proPrice",order.getPro_price());
+                intent.putExtra("sendMsgToBuy","paided");
+                intent.putExtra("sendOrderID",order.getOrderID());
+                context.startActivity(intent);
+
+            }
+        });
+
 
     }
 
@@ -164,7 +197,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
         ImageView orderproductimg;
         TextView txtorderpname,txtorderpprice,txtorderproductqty,orderproductstatus;
-        MaterialButton btncancel,btnreceived;
+        MaterialButton btncancel,btnreceived,btntopay;
 
 
 
@@ -180,6 +213,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             orderproductstatus = itemView.findViewById(R.id.orderStatus);
             btncancel = itemView.findViewById(R.id.cancel_button);
             btnreceived = itemView.findViewById(R.id.confirm_button);
+            btntopay = itemView.findViewById(R.id.toPaid_button);
 
         }
     }

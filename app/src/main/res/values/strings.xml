@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">VTC_ECommerce_androidApp</string>
 
-    <string name="login_title">Welcome back to <br />VTC E-commerce </string>
+    <string name="login_title">Welcome back to <br />E-Shop </string>
     <string name="title_activity_home_page">HomePageActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

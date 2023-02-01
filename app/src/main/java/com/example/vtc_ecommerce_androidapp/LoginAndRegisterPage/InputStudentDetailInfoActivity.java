@@ -16,12 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.vtc_ecommerce_androidapp.Manager.CollectManager;
 import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
 import com.example.vtc_ecommerce_androidapp.ModelClass.Student;
 import com.example.vtc_ecommerce_androidapp.PageView.HomePage_Activity;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.Service.RequestHandler;
 import com.example.vtc_ecommerce_androidapp.Service.URLs;
+import com.example.vtc_ecommerce_androidapp.api.Config;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -202,7 +204,7 @@ public class InputStudentDetailInfoActivity extends AppCompatActivity {
 
                         //storing the user in shared preferences
                         SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
-
+                        createOrder();
                         //starting the profile activity
                         finish();
                         startActivity(new Intent(getApplicationContext(), HomePage_Activity.class));
@@ -223,5 +225,21 @@ public class InputStudentDetailInfoActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void createOrder() {
+
+        int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+        String orderStatus = "1"; //unpaid
+
+
+
+
+        String link = "userID="+userid + "&total_price="+"0" + "&order_status="+orderStatus + "&product_delivery="+"test" + "&quantity="+"0";
+        System.out.println("this step 1");
+
+
+        String url = Config.ADD_ORDER + link;
+        new CollectManager().execute(url);
     }
 }

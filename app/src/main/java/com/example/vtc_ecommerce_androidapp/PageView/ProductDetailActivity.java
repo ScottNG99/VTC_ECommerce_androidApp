@@ -134,7 +134,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     quantity++;
                     txttotalQuantity.setText(String.valueOf(quantity));
                     totalPrice = quantity * Integer.parseInt(pPrice);
-                    txttotalprice.setText(String.valueOf(totalPrice));
+                    txttotalprice.setText(String.valueOf("$"+totalPrice));
 
 
                 }
@@ -160,7 +160,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     quantity--;
                     txttotalQuantity.setText(String.valueOf(quantity));
                     totalPrice = totalPrice - Integer.parseInt(pPrice);
-                    txttotalprice.setText(String.valueOf(totalPrice));
+                    txttotalprice.setText(String.valueOf("$"+totalPrice));
 
                 }
 

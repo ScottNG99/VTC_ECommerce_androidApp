@@ -65,6 +65,10 @@ public class PaymentPageActivity extends AppCompatActivity {
     ArrayList<String> getProductTotalPrice;
     ArrayList<String> getProductQty;
 
+    String formUnpaidPage;
+    String Msgpaided;
+
+
 
     OrderModel orderModel;
 
@@ -79,7 +83,7 @@ public class PaymentPageActivity extends AppCompatActivity {
 
         tobackcheckout = findViewById(R.id.tobackCheckOut);
 
-        getApiOrderID();
+        //getApiOrderID();
 
         getProductID = new ArrayList<String>();
         getProductTotalPrice = new ArrayList<String>();
@@ -98,17 +102,37 @@ public class PaymentPageActivity extends AppCompatActivity {
         getProductTotalPrice = getIntent().getExtras().getStringArrayList("productTotalPrice");
         getProductQty = getIntent().getExtras().getStringArrayList("productQTY");
 
-        for (int i=0; i<getProductID.size(); i++){
-            System.out.println("show id list all " + getProductID.get(i) + " and qty " + getProductQty.get(i) + " and amounmt " + getProductTotalPrice.get(i));
+//        for (int i=0; i<getProductID.size(); i++){
+//            System.out.println("show id list all " + getProductID.get(i) + " and qty " + getProductQty.get(i) + " and amounmt " + getProductTotalPrice.get(i));
+//
+//        }
+        formUnpaidPage = intent.getStringExtra("proPrice");
+        Msgpaided = intent.getStringExtra("sendMsgToBuy");
+        getOrderID = intent.getStringExtra("sendOrderID");
 
-        }
 
 
-        if (getProductPrice == 0){
-            finalAmount = getProductsPrice*100;
+
+
+
+
+//        if (getProductPrice == 0){
+//            finalAmount = getProductsPrice*100;
+//        }else {
+//            finalAmount = getProductPrice*100;
+//        }
+
+        if (getProductPrice ==0 && getProductsPrice ==0){
+            finalAmount = Integer.parseInt(formUnpaidPage)*100;
         }else {
-            finalAmount = getProductPrice*100;
+            if (getProductPrice == 0){
+                finalAmount = getProductsPrice*100;
+            }else {
+                finalAmount = getProductPrice*100;
+            }
         }
+
+
 
 
 
@@ -144,59 +168,59 @@ public class PaymentPageActivity extends AppCompatActivity {
 
     }
 
-    private void getApiOrderID() {
-
-        int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
-        String path = "userID=" + String.valueOf(userid);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.GET_ORDERID+path,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-
-
-                        try {
-
-                            JSONArray array = new JSONArray(response);
-                            for (int i = 0; i<array.length(); i++){
-
-                                JSONObject object = array.getJSONObject(i);
-
-                                String orderid = object.getString("orderID");
-
-                                getOrderID = orderid;
-
-
-
-                            }
-
-
-                        }catch (Exception e){
-
-                        }
-
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-
-                Toast.makeText(PaymentPageActivity.this, error.toString(),Toast.LENGTH_LONG).show();
-
-
-            }
-        });
-
-        Volley.newRequestQueue(PaymentPageActivity.this).add(stringRequest);
-
-
-
-
-
-
-    }
+//    private void getApiOrderID() {
+//
+//        int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+//        String path = "userID=" + String.valueOf(userid);
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.GET_ORDERID+path,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//
+//
+//
+//                        try {
+//
+//                            JSONArray array = new JSONArray(response);
+//                            for (int i = 0; i<array.length(); i++){
+//
+//                                JSONObject object = array.getJSONObject(i);
+//
+//                                String orderid = object.getString("orderID");
+//
+//                                getOrderID = orderid;
+//
+//
+//
+//                            }
+//
+//
+//                        }catch (Exception e){
+//
+//                        }
+//
+//
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//
+//                Toast.makeText(PaymentPageActivity.this, error.toString(),Toast.LENGTH_LONG).show();
+//
+//
+//            }
+//        });
+//
+//        Volley.newRequestQueue(PaymentPageActivity.this).add(stringRequest);
+//
+//
+//
+//
+//
+//
+//    }
 
 
     private void fetchApi() {
@@ -274,7 +298,15 @@ public class PaymentPageActivity extends AppCompatActivity {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             newFragment.show(ft, "dialog");
 
-            createOrderLine();
+            //createOrderLine();
+            if (Msgpaided.equals("paided")){
+                int userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+                String link = "orderID="+getOrderID +  "&userID="+userid ;
+
+                System.out.println("ti go this code " + getOrderID + " and " + userid);
+                String url = Config.UPDATE_ORDER_STATUS + link;
+                new CollectManager().execute(url);
+            }
 
 
         } else if (paymentSheetResult instanceof PaymentSheetResult.Canceled) {
@@ -285,21 +317,21 @@ public class PaymentPageActivity extends AppCompatActivity {
         }
     }
 
-    private void createOrderLine() {
-
-        for (int n=0;n<getProductID.size();n++){
-
-            String link = "productID="+getProductID.get(n) + "&pro_total_price="+getProductTotalPrice.get(n) + "&pro_num="+getProductQty.get(n) + "&orderID="+getOrderID;
-
-            System.out.println("show link shhh " + link);
-            String url = Config.ADD_ORDER_LINE + link;
-            new CollectManager().execute(url);
-
-
-
-        }
-
-
-    }
+//    private void createOrderLine() {
+//
+//        for (int n=0;n<getProductID.size();n++){
+//
+//            String link = "productID="+getProductID.get(n) + "&pro_total_price="+getProductTotalPrice.get(n) + "&pro_num="+getProductQty.get(n) + "&orderID="+getOrderID;
+//
+//            System.out.println("show link shhh " + link);
+//            String url = Config.ADD_ORDER_LINE + link;
+//            new CollectManager().execute(url);
+//
+//
+//
+//        }
+//
+//
+//    }
 
 }

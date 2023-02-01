@@ -40,6 +40,34 @@
         android:layout_marginTop="15dp"
         android:layout_below="@+id/linear1">
 
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unpaid"
+                android:layout_gravity="center"
+                android:textColor="#8E96A5"
+                android:textSize="16sp"
+                android:id="@+id/txtunpaid"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/r1"
+                android:id="@+id/viewline0"
+                android:layout_marginTop="12dp"
+                android:background="#8E96A5" />
+
+
+        </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,6 +152,33 @@
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/Linearnodata"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/newnodata"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="There's nothing here"/>
+
+
+
+
+
+
+    </LinearLayout>
 
 
 
