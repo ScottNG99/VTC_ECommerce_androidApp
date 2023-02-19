@@ -11,6 +11,8 @@
     <color name="shrine_blue_100">#E7F6FC</color>
     <color name="shrine_blue_900">#9E9E9E</color>
 
+    <color name="startclor">#FFB71F</color>
+
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#101010</color>
 
 

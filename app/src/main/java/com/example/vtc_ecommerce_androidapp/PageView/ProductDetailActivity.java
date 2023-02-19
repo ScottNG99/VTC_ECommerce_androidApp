@@ -1,13 +1,18 @@
 package com.example.vtc_ecommerce_androidapp.PageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +22,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.vtc_ecommerce_androidapp.Adater.OrderAdapter;
+import com.example.vtc_ecommerce_androidapp.Adater.ReviewAdapter;
 import com.example.vtc_ecommerce_androidapp.Manager.CollectManager;
 import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
 import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
+import com.example.vtc_ecommerce_androidapp.ModelClass.Order;
 import com.example.vtc_ecommerce_androidapp.ModelClass.OrderProduct;
+import com.example.vtc_ecommerce_androidapp.ModelClass.Review;
 import com.example.vtc_ecommerce_androidapp.ModelClass.TestRespon;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.api.Config;
@@ -38,6 +47,19 @@ public class ProductDetailActivity extends AppCompatActivity {
     ImageView addQuantity,minusQuantity;
 
     private Button btnaddToCart,btntoCheckOut;
+
+    private LinearLayout detatilsbtn,reviewbtn;
+    //private LinearLayout showdetails,showreviws;
+    private LinearLayout showdetails,nodate;
+    private RelativeLayout showreviws;
+    private TextView detatilstxt,reviewstxt;
+    private View detailsview,reviewView;
+
+    private List<Review> reviewList;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private ReviewAdapter adapter;
+    Review review;
 
     //Default quantity is 1;
     int quantity = 1;
@@ -77,6 +99,27 @@ public class ProductDetailActivity extends AppCompatActivity {
         imgIntroductionTwo = findViewById(R.id.imgintrotwo);
         btntoCheckOut = findViewById(R.id.tobuy);
 
+        detatilsbtn = findViewById(R.id.detailsLinea);
+        reviewbtn = findViewById(R.id.recivewsLinear);
+        showdetails = findViewById(R.id.showDetailsInfo);
+        showreviws = findViewById(R.id.showComments);
+
+        detatilstxt = findViewById(R.id.detailstext);
+        reviewstxt = findViewById(R.id.reviewtxt);
+        detailsview = findViewById(R.id.detailsview);
+        reviewView = findViewById(R.id.reviewline0);
+        nodate = findViewById(R.id.Linearnodatareview);
+
+        recyclerView =  findViewById(R.id.recViewreviews);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        reviewList = new ArrayList<>();
+
+
+
+
 
 
         Intent intent = getIntent();
@@ -90,6 +133,43 @@ public class ProductDetailActivity extends AppCompatActivity {
         String pItroTwo = intent.getStringExtra("pIntroductiontwo");
 
         String getAcitityPage = intent.getStringExtra("sendActivity");
+
+
+        reviewbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showreviws.setVisibility(View.VISIBLE);
+                showdetails.setVisibility(View.GONE);
+
+                reviewstxt.setTextColor(Color.parseColor("#000000"));
+                reviewView.setBackgroundColor(Color.parseColor("#000000"));
+
+                detatilstxt.setTextColor(Color.parseColor("#8E96A5"));
+                detailsview.setBackgroundColor(Color.parseColor("#dfdfdf"));
+
+                getReviews(pid);
+
+
+
+
+            }
+        });
+
+        detatilsbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showreviws.setVisibility(View.GONE);
+                showdetails.setVisibility(View.VISIBLE);
+
+                reviewstxt.setTextColor(Color.parseColor("#8E96A5"));
+                reviewView.setBackgroundColor(Color.parseColor("#dfdfdf"));
+
+                detatilstxt.setTextColor(Color.parseColor("#000000"));
+                detailsview.setBackgroundColor(Color.parseColor("#000000"));
+
+                reviewList.clear();
+            }
+        });
 
 
 
@@ -248,6 +328,78 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void getReviews(String pid) {
+
+
+
+
+        String link = "productID="+pid;
+        String url = Config.GET_RATING + link;
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+                        try {
+
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0; i<array.length(); i++){
+
+                                JSONObject object = array.getJSONObject(i);
+
+                                String productID = object.getString("productID");
+                                String rating = object.getString("rating");
+                                String comment = object.getString("comment");
+                                String creattime = object.getString("creat_time");
+                                String nickname = object.getString("user_nick_name");
+
+
+
+                                review = new Review(productID,rating,comment,creattime,nickname);
+                                reviewList.add(review);
+
+
+
+                            }
+
+                            if (reviewList == null || reviewList.isEmpty()){
+                                nodate.setVisibility(View.VISIBLE);
+                                recyclerView.setVisibility(View.GONE);
+                            }else {
+                                nodate.setVisibility(View.GONE);
+
+                            }
+
+
+                            adapter = new ReviewAdapter(ProductDetailActivity.this,reviewList);
+                            recyclerView.setAdapter(adapter);
+
+                        }catch (Exception e){
+
+                        }
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+                Toast.makeText(ProductDetailActivity.this, error.toString(),Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+
+        Volley.newRequestQueue(ProductDetailActivity.this).add(stringRequest);
 
     }
 

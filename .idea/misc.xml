@@ -17,6 +17,7 @@
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/ic_view_pas.xml" value="0.36512820512820515" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/login_input.xml" value="0.36512820512820515" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/quantity_color_bg.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/drawable/ratingstars.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_check_out.xml" value="0.32382246376811596" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_collect.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.3385416666666667" />
@@ -48,6 +49,8 @@
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/popular_product_list_style.xml" value="0.353125" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/product_list_item_layout.xml" value="0.3052536231884058" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/quantity_layout_style.xml" value="0.25" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/review_dialog.xml" value="0.3578125" />
+        <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/review_list_style.xml" value="0.3578125" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/layout/slider_item.xml" value="0.21105072463768115" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3515625" />
         <entry key="..\:/Users/ngyic/VTC_ECommerce_androidApp/app/src/main/res/xml/network_security_config.xml" value="0.2" />

@@ -3,6 +3,7 @@ package com.example.vtc_ecommerce_androidapp.Adater;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,15 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.vtc_ecommerce_androidapp.DialogFragment.FilterDialogFragment;
+import com.example.vtc_ecommerce_androidapp.DialogFragment.ReviewDialogFragment;
 import com.example.vtc_ecommerce_androidapp.Manager.CollectManager;
 import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
 import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
@@ -80,7 +86,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         } else if (getStatus.equals("4")){
             holder.orderproductstatus.setText("Received");
             holder.orderproductstatus.setTextColor(Color.parseColor("#3EA7FE"));
-
+            holder.btnreview.setVisibility(View.VISIBLE);
             holder.btnreceived.setVisibility(View.GONE);
             holder.btncancel.setVisibility(View.VISIBLE);
             holder.btncancel.setText("Cancel Record");
@@ -160,6 +166,25 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             }
         });
 
+        holder.btnreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+
+                ReviewDialogFragment newFragment = new ReviewDialogFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("pID",order.getProductID());
+                newFragment.setArguments(bundle);
+
+
+                newFragment.show(ft, "dialog");
+            }
+        });
+
 
     }
 
@@ -197,7 +222,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
         ImageView orderproductimg;
         TextView txtorderpname,txtorderpprice,txtorderproductqty,orderproductstatus;
-        MaterialButton btncancel,btnreceived,btntopay;
+        MaterialButton btncancel,btnreceived,btntopay,btnreview;
 
 
 
@@ -214,6 +239,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             btncancel = itemView.findViewById(R.id.cancel_button);
             btnreceived = itemView.findViewById(R.id.confirm_button);
             btntopay = itemView.findViewById(R.id.toPaid_button);
+            btnreview = itemView.findViewById(R.id.addReview);
 
         }
     }

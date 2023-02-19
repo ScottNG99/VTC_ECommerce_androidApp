@@ -8,8 +8,9 @@ public class Order {
     private String order_status;
     private String orderlineID;
     private String orderID;
+    private String productID;
 
-    public Order(String pro_name, String pro_price, String pro_image1, String pro_num, String order_status, String orderlineID, String orderID) {
+    public Order(String pro_name, String pro_price, String pro_image1, String pro_num, String order_status, String orderlineID, String orderID, String productID) {
         this.pro_name = pro_name;
         this.pro_price = pro_price;
         this.pro_image1 = pro_image1;
@@ -17,6 +18,15 @@ public class Order {
         this.order_status = order_status;
         this.orderlineID = orderlineID;
         this.orderID = orderID;
+        this.productID = productID;
+    }
+
+    public String getProductID() {
+        return productID;
+    }
+
+    public void setProductID(String productID) {
+        this.productID = productID;
     }
 
     public String getOrderlineID() {

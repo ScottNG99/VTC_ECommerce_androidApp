@@ -253,10 +253,12 @@ public class OrderPageActivity extends AppCompatActivity implements SwipeRefresh
 
                                 String orderlineID = object.getString("orderlineID");
                                 String orderID = object.getString("orderID");
+                                String productID = object.getString("productID");
 
                                 System.out.println("order isisi" + orderID);
 
-                                order = new Order(pName,price,pImage,pro_num,pro_status,orderlineID,orderID);
+                                //order = new Order(pName,price,pImage,productID,pro_num,pro_status,orderlineID,orderID);
+                                order = new Order(pName,price,pImage,pro_num,pro_status,orderlineID,orderID,productID);
                                 orderList.add(order);
 
 
