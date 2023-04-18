@@ -128,6 +128,8 @@
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/dm_sans"
                     android:text="Apple MacBook"
+                    android:lines="2"
+                    android:ellipsize="end"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 

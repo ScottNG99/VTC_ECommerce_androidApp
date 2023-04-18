@@ -29,8 +29,11 @@ import com.example.vtc_ecommerce_androidapp.Adater.CollectAdapter;
 import com.example.vtc_ecommerce_androidapp.Adater.PopularAdapter;
 import com.example.vtc_ecommerce_androidapp.Adater.ProductAdapter;
 import com.example.vtc_ecommerce_androidapp.Adater.SliderAdapter;
+import com.example.vtc_ecommerce_androidapp.Adater.categoryAdapter;
 import com.example.vtc_ecommerce_androidapp.MainActivity;
+import com.example.vtc_ecommerce_androidapp.Manager.SharedPrefManager;
 import com.example.vtc_ecommerce_androidapp.ModelClass.AllProducts;
+import com.example.vtc_ecommerce_androidapp.ModelClass.category;
 import com.example.vtc_ecommerce_androidapp.ModelClass.product;
 import com.example.vtc_ecommerce_androidapp.R;
 import com.example.vtc_ecommerce_androidapp.api.Config;
@@ -64,12 +67,26 @@ public class HomePage_Activity extends AppCompatActivity  {
     private RecyclerView.LayoutManager layoutManager;
     private  PopularAdapter adapter;
 
+    //recommendation view adapter
+    private  RecyclerView recommendationRec;
+    private List<AllProducts> allRcommendationList;
+    private RecyclerView.LayoutManager reclayoutManager;
+
+    //category view adapter
+    private  RecyclerView catergoryRec;
+    private List<category> allcatergoryList;
+    private RecyclerView.LayoutManager catelayoutManager;
+    private categoryAdapter categoryAdapter;
+
 //    RequestQueue requestQueue;
 //    private int requestCount = 1;
 
     private BottomNavigationView buttomNavbar;
 
     AllProducts product;
+    category category;
+
+    private int userid;
 
 
 
@@ -86,14 +103,33 @@ public class HomePage_Activity extends AppCompatActivity  {
         layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
 
+        recommendationRec = findViewById(R.id.RecommendationrecyclerView);
+        recommendationRec.setHasFixedSize(true);
+        reclayoutManager = new GridLayoutManager(this,2);
+        recommendationRec.setLayoutManager(reclayoutManager);
+
+
+        catergoryRec = findViewById(R.id.categoryrecyclerView);
+        catelayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        catergoryRec.setLayoutManager(catelayoutManager);
+
+
+
+
+
         //Initializing our product list
         allProductsList = new ArrayList<>();
+        allRcommendationList = new ArrayList<>();
+        allcatergoryList = new ArrayList<>();
         //requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         //Calling method to get data to fetch data
         //getData();
 
         getPopularData();
+        getRecommendationData();
+
+        getcategory();
 
         //Adding an scroll change listener to recyclerview
         //recyclerView.setOnScrollChangeListener(this);
@@ -159,6 +195,156 @@ public class HomePage_Activity extends AppCompatActivity  {
 
     }
 
+    private void getcategory() {
+
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.GET_CATEGORY,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+                        try {
+
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0; i<array.length(); i++){
+
+                                JSONObject object = array.getJSONObject(i);
+
+                                String category_name = object.getString("category_name");
+
+                                String categoryID = object.getString("categoryID");
+                                String categorycol_image = object.getString("categorycol_image");
+
+
+
+
+
+
+
+
+                                category = new category(category_name,categorycol_image,categoryID);
+                                allcatergoryList.add(category);
+
+                            }
+
+
+                                categoryAdapter = new categoryAdapter(HomePage_Activity.this,allcatergoryList);
+                                catergoryRec.setAdapter(categoryAdapter);
+
+                        }catch (Exception e){
+
+                        }
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+                Toast.makeText(HomePage_Activity.this, error.toString(),Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+
+        Volley.newRequestQueue(HomePage_Activity.this).add(stringRequest);
+
+
+
+
+
+
+
+
+//        allcatergoryList.add(new category("http://fypvtcecommerce.000webhostapp.com/image/category/1.png","Windows"));
+//        allcatergoryList.add(new category("http://fypvtcecommerce.000webhostapp.com/image/category/2.png","Mac"));
+//        allcatergoryList.add(new category("http://fypvtcecommerce.000webhostapp.com/image/category/3.png","Earphone"));
+//        allcatergoryList.add(new category("http://fypvtcecommerce.000webhostapp.com/image/category/4.png","Stationery"));
+//        allcatergoryList.add(new category("http://fypvtcecommerce.000webhostapp.com/image/category/5.png","Mouse and Keyboard"));
+//        allcatergoryList.add(new category("http://fypvtcecommerce.000webhostapp.com/image/category/6.png","Tablet"));
+//        allcatergoryList.add(new category("http://fypvtcecommerce.000webhostapp.com/image/category/7.png","Rucksack"));
+//        allcatergoryList.add(new category("http://fypvtcecommerce.000webhostapp.com/image/category/8.png","Monitor"));
+//
+//        categoryAdapter = new categoryAdapter(HomePage_Activity.this,allcatergoryList);
+//        catergoryRec.setAdapter(categoryAdapter);
+
+
+
+
+
+
+
+    }
+
+    private void getRecommendationData() {
+        userid = SharedPrefManager.getInstance(getApplicationContext()).getStudent().getUserID();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.GET_RECOMMENDATIONAPI+userid,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+                        try {
+
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0; i<array.length(); i++){
+
+                                JSONObject object = array.getJSONObject(i);
+
+                                String pName = object.getString("pro_name");
+                                int pPrice = object.getInt("pro_price");
+                                String pScore = object.getString("pro_score");
+                                String pImage = object.getString("pro_image1");
+                                String pImageTwo = object.getString("pro_image2");
+                                String pdesc = object.getString("pro_desc");
+                                String pID = object.getString("productID");
+                                String pImageThree = object.getString("pro_image3");
+                                String price = String.valueOf(pPrice);
+
+                                System.out.println("show recommendation id " + pName);
+
+
+
+                                product = new AllProducts(pName,price,pScore,pImage,pImageTwo,pImageThree,pdesc,null,pID);
+                                allRcommendationList.add(product);
+
+                            }
+
+
+                            adapter = new PopularAdapter(HomePage_Activity.this,allRcommendationList);
+                            recommendationRec.setAdapter(adapter);
+
+                        }catch (Exception e){
+
+                        }
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+                Toast.makeText(HomePage_Activity.this, error.toString(),Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+
+        Volley.newRequestQueue(HomePage_Activity.this).add(stringRequest);
+
+
+
+
+    }
+
     private void getPopularData() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.GET_POPULAR_PRODUCT,
@@ -184,6 +370,8 @@ public class HomePage_Activity extends AppCompatActivity  {
                                 String pID = object.getString("productID");
                                 String pImageThree = object.getString("pro_image3");
                                 String price = String.valueOf(pPrice);
+
+
 
 
 

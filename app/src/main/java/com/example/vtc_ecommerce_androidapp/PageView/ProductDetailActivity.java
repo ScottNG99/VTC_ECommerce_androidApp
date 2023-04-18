@@ -167,6 +167,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                 detatilstxt.setTextColor(Color.parseColor("#000000"));
                 detailsview.setBackgroundColor(Color.parseColor("#000000"));
 
+                nodate.setVisibility(View.GONE);
+
                 reviewList.clear();
             }
         });
@@ -415,7 +417,9 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         new CollectManager().execute(linkURL);
 
-        Toast.makeText(getApplicationContext(),"Add to Cart successful",Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(),"Add to Cart successful",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(ProductDetailActivity.this,MyCartActivity.class);
+        startActivity(intent);
 
 
     }

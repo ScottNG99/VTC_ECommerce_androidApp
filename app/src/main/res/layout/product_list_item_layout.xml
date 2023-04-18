@@ -34,6 +34,8 @@
                         android:id="@+id/allpname"
                         android:text="Apple MacBook"
                         android:layout_marginLeft="10dp"
+                        android:lines="2"
+                        android:ellipsize="end"
                         android:textSize="18sp"
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/dm_sans"

@@ -46,6 +46,8 @@ public class Config {
     public static final String UPDATE_ORDER_STATUS = "http://" + IP_ADDRESS+ "/ecommerce/updateOrderStatus.php?";
     public static final String ADD_RATING = "http://" + IP_ADDRESS+ "/ecommerce/addRating.php?";
     public static final String GET_RATING = "http://" + IP_ADDRESS+ "/ecommerce/getProducctReviews.php?";
+    public static final String GET_RECOMMENDATIONAPI = "http://" + IP_ADDRESS+ "/ecommerce/recommendationSystem/getRecommendation.php?userID=";
+    public static final String GET_CATEGORY = "http://" + IP_ADDRESS+ "/ecommerce/getCategory.php?";
     public static final String TEST_GET_ORDER_LIST = "http://" + IP_ADDRESS+ "/ecommerce/testGetOrder.php?";
 
 
@@ -78,5 +80,9 @@ public class Config {
 //    public static final String GET_ORDERID = "http://fypvtcecommerce.000webhostapp.com/getOrderID.php?";
 //    public static final String UPDATE_AND_CANCEL_ORDER = "http://fypvtcecommerce.000webhostapp.com/cancelOrderAndUpdateOrder.php?";
 //    public static final String UPDATE_ORDER_STATUS = "http://fypvtcecommerce.000webhostapp.com/updateOrderStatus.php?";
+//    public static final String ADD_RATING = "http://fypvtcecommerce.000webhostapp.com/addRating.php?";
+//    public static final String GET_RATING = "http://fypvtcecommerce.000webhostapp.com/getProducctReviews.php?";
+//    public static final String GET_RECOMMENDATIONAPI = "http://fypvtcecommerce.000webhostapp.com/recommendationSystem/getRecommendation.php?userID=";
+//    public static final String GET_CATEGORY = "http://fypvtcecommerce.000webhostapp.com/getCategory.php?";
 
 }

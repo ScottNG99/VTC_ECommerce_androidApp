@@ -47,7 +47,7 @@ public class login_page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
+        setContentView(R.layout.new_login_pagetwo);
 
         edtstudentNum = findViewById(R.id.edtlogin);
         edtpassword = findViewById(R.id.edtpassword);

@@ -85,6 +85,17 @@ public class ListAllProductActivity extends AppCompatActivity implements SwipeRe
         //Calling method to get data to fetch data
 
 
+        Intent intent = getIntent();
+        String categoryID = intent.getStringExtra("categoryID");
+
+//        if (categoryID != null){
+//
+//            getproduct(categoryID,"0","0");
+//
+//        }
+
+
+
 
 
         btnFilter.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +149,17 @@ public class ListAllProductActivity extends AppCompatActivity implements SwipeRe
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
-                getproduct("0",null,null);
+
+                if (categoryID != null){
+
+                    getproduct(categoryID,null,null);
+
+                }else {
+                    getproduct("0",null,null);
+
+                }
+
+
             }
 
         });
@@ -299,10 +320,12 @@ public class ListAllProductActivity extends AppCompatActivity implements SwipeRe
 
     }*/
 
-    private void getproduct(String categoryID, String lowest, String highest) {
+    public void getproduct(String categoryID, String lowest, String highest) {
         swipeRefreshLayout.setRefreshing(true);
         String link = "categoryID="+categoryID + "&lowest_pro_price="+lowest + "&highest_pro_price="+highest;
         String url = Config.ALL_PRODUCT_URL + link;
+
+        System.out.println("show path " + url);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

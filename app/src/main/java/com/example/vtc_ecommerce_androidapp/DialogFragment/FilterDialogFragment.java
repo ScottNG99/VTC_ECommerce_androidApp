@@ -168,7 +168,16 @@ public class FilterDialogFragment extends DialogFragment {
         }else if (getrec.equals("Mac")){
             getcategoryID = "2";
         }else if (getrec.equals("Tablet")){
-            getcategoryID = "10";
+            getcategoryID = "6";
+        }else if (getrec.equals("Monitor")){
+            getcategoryID = "8";
+
+        }else if (getrec.equals("Earphone")){
+            getcategoryID = "3";
+        }else if (getrec.equals("Mouse and Keyboard")){
+            getcategoryID = "5";
+        }else if (getrec.equals("Rucksack")){
+            getcategoryID = "7";
         }
 
         return getcategoryID;
@@ -182,6 +191,10 @@ public class FilterDialogFragment extends DialogFragment {
         category.add("Windows");
         category.add("Mac");
         category.add("Tablet");
+        category.add("Rucksack");
+        category.add("Monitor");
+        category.add("Earphone");
+        category.add("Mouse and Keyboard");
 
 
         return category;
