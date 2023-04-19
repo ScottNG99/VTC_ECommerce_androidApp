@@ -7,7 +7,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -40,6 +46,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.opencensus.internal.Utils;
+
 //import okhttp3.*;
 
 
@@ -48,7 +56,8 @@ public class PaymentPageActivity extends AppCompatActivity {
     private static final String TAG = "PaymentPageActivity";
 //    private static final String BACKEND_URL = "http://192.168.1.218/crdeitCardSheet/serversCard.php?";
 
-    private CardView CrditCardPayment;
+    //private CardView CrditCardPayment;
+    private Button CrditCardPayment;
     ImageView tobackcheckout;
 
     private PaymentSheet paymentSheet;
@@ -77,7 +86,7 @@ public class PaymentPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment_page);
+        setContentView(R.layout.activity_new_payment_page);
         fetchApi();
         CrditCardPayment = findViewById(R.id.cardPayment);
 
@@ -112,6 +121,14 @@ public class PaymentPageActivity extends AppCompatActivity {
 
 
 
+
+        if (getProductPrice == 0){
+            CrditCardPayment.setText("Confirm Payment  " + String.valueOf("$"+getProductsPrice));
+
+
+        }else {
+            CrditCardPayment.setText("Confirm Payment  " + String.valueOf("$"+getProductPrice));
+        }
 
 
 

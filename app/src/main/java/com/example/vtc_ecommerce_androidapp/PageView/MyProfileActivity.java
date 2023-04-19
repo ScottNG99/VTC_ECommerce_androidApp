@@ -35,7 +35,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private TextView txtNikeName,txtstudentNO;
     private BottomNavigationView buttomNavbar;
     //private ImageView btnEdit,btnlogot,btnMyCollection;
-    private LinearLayout btnEdit,btnlogot,btnMyCollection,btnMyorder;
+    private LinearLayout btnEdit,btnlogot,btnMyCollection,btnMyorder,btnChat;
 
     Student student;
 
@@ -50,7 +50,7 @@ public class MyProfileActivity extends AppCompatActivity {
         btnEdit = findViewById(R.id.toedit);
         btnMyCollection = findViewById(R.id.tomycollection);
         btnMyorder = findViewById(R.id.intendOrderPage);
-
+        btnChat = findViewById(R.id.toChat);
 
 
 
@@ -119,6 +119,15 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 showNormalDialog();
+            }
+        });
+
+
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyProfileActivity.this,ChatRoomActivity.class);
+                startActivity(intent);
             }
         });
 

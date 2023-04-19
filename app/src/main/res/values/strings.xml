@@ -12,5 +12,5 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="notice">The product pictures, videos and screen content on the above pages are for illustration only, the actual product effect (including but not limited to appearance, color, size) and screen display content (including but not limited to background, UI, picture, video) may be slightly different For differences, please refer to the actual product.</string>
-
+    <string name="enter_message">Enter message</string>
 </resources>

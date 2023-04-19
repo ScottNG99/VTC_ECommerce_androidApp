@@ -3,6 +3,10 @@ plugins {
 }
 
 android {
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+
     compileSdk 32
 
     defaultConfig {
@@ -56,6 +60,13 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.7.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
+
+
+
+    implementation 'com.google.cloud:google-cloud-dialogflow:4.21.0'
+
+    implementation 'io.grpc:grpc-okhttp:1.54.0'
+    implementation 'io.grpc:grpc-netty:1.45.0'
 
 
 

@@ -99,8 +99,10 @@ public class Regiter_pageActivity extends AppCompatActivity {
 
         }
 
+        //System.out.println("show 44 " + listStudentcardinfo[0]);
 
-        String [] arrsplitthree = listStudentcardinfo[4].split("\\s+");
+
+        String [] arrsplitthree = listStudentcardinfo[0].split("\n+");
         String [] arrsplittl= new String[arrsplitthree.length];
         for (int i =0; i<arrsplitthree.length; i++){
             arrsplittl[i] = arrsplitthree[i];
@@ -110,18 +112,40 @@ public class Regiter_pageActivity extends AppCompatActivity {
 
 
 
-        boolean isFound;
-        String[] filterArray = new String[listStudentcardinfo.length];
-        filterArray[0] = listStudentcardinfo[0];
-        for (int i = 0; i<listStudentcardinfo.length; i++){
+        String [] studentidlist = arrsplittl[6].split("\\s+");
+        System.out.println("can show id?? " + studentidlist[0]);
 
-            if (isFound = listStudentcardinfo[i].contains("Valid")){
-                filterArray[1] = listStudentcardinfo[i];
+
+
+
+
+//        boolean isFound;
+//        String[] filterArray = new String[listStudentcardinfo.length];
+//        filterArray[0] = listStudentcardinfo[0];
+//        for (int i = 0; i<listStudentcardinfo.length; i++){
+//
+//            if (isFound = listStudentcardinfo[i].contains("Valid")){
+//                filterArray[1] = listStudentcardinfo[i];
+//            }
+//
+//
+//
+//        }
+
+        boolean isFound;
+        String[] filterArray = new String[arrsplittl.length];
+        filterArray[0] = arrsplittl[0];
+        for (int i = 0; i<arrsplittl.length; i++){
+
+            if (isFound = arrsplittl[i].contains("Valid")){
+                filterArray[1] = arrsplittl[i];
+                System.out.println("inter this11 " + filterArray[1]);
             }
 
 
 
         }
+
 
         String [] arrsplit = filterArray[1].split("\\s+");
         String [] arrsplittwo = new String[arrsplit.length];
@@ -144,10 +168,10 @@ public class Regiter_pageActivity extends AppCompatActivity {
 
         //final array student info
 
-        String studentname = listStudentcardinfo[0];
-        String studentnum = arrsplittl[1];
+        String studentname = arrsplittl[0];
+        String studentnum =  studentidlist[0];
         String studentValid = filtertime[1];
-        String studentCourse = listStudentcardinfo[5];
+        String studentCourse = arrsplittl[7];
 
 
 
