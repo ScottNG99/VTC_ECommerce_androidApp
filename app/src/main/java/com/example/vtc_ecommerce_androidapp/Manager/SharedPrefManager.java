@@ -82,4 +82,6 @@ public class SharedPrefManager {
         mCtx.startActivity(new Intent(mCtx, login_page.class));
     }
 
+
+
 }

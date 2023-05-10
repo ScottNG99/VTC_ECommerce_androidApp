@@ -178,6 +178,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
                 ReviewDialogFragment newFragment = new ReviewDialogFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("pID",order.getProductID());
+                bundle.putString("orderlineID",order.getOrderlineID());
+                bundle.putString("orderID",order.getOrderID());
+                bundle.putString("selection", "cancel");
                 newFragment.setArguments(bundle);
 
 

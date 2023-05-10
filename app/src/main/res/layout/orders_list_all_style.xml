@@ -74,10 +74,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
-                            android:lines="2"
-                            android:ellipsize="end"
                             android:layout_marginRight="22dp"
+                            android:ellipsize="end"
                             android:fontFamily="@font/dm_sans"
+                            android:lines="2"
                             android:text="Apple MacBook"
                             android:textColor="@color/black"
                             android:textSize="16sp" />

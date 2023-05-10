@@ -15,6 +15,9 @@
         android:theme="@style/Theme.VTC_ECommerce_androidApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PageView.OnlineChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".PageView.ChatRoomActivity"
             android:exported="false" />
         <activity

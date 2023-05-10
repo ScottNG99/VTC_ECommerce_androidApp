@@ -42,7 +42,7 @@ import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    private ImageView imgProduct,back,imgIntroduction,imgCollect,imgIntroductionTwo;
+    private ImageView imgProduct,back,imgIntroduction,imgCollect,imgIntroductionTwo,imgonlinechat;
     private TextView txtProductNamr,txtScore,txtPrice,txtdescrition,txttotalprice,txttotalQuantity;
     ImageView addQuantity,minusQuantity;
 
@@ -98,6 +98,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         btnaddToCart = findViewById(R.id.addCart);
         imgIntroductionTwo = findViewById(R.id.imgintrotwo);
         btntoCheckOut = findViewById(R.id.tobuy);
+        imgonlinechat = findViewById(R.id.onlineChat);
 
         detatilsbtn = findViewById(R.id.detailsLinea);
         reviewbtn = findViewById(R.id.recivewsLinear);
@@ -173,7 +174,21 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-
+        imgonlinechat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(ProductDetailActivity.this,OnlineChatActivity.class);
+//                intent1.putExtra("productName",pName);
+//                intent1.putExtra("productPrice",pPrice);
+//                intent1.putExtra("productImg",pImg);
+//                intent1.putExtra("productintro1",pItro);
+//                intent1.putExtra("productintro2",pItroTwo);
+//                intent1.putExtra("productscore",pScore);
+//                intent1.putExtra("productintrodation",pDesce);
+//                intent1.putExtra("productID",pid);
+                startActivity(intent1);
+            }
+        });
 
         //To Check Out a product
         btntoCheckOut.setOnClickListener(new View.OnClickListener() {

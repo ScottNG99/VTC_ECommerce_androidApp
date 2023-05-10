@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -329,9 +330,9 @@ public class ListAllProductActivity extends AppCompatActivity implements SwipeRe
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
+
                     @Override
                     public void onResponse(String response) {
-
 
 
                         try {
@@ -378,6 +379,8 @@ public class ListAllProductActivity extends AppCompatActivity implements SwipeRe
 
             }
         });
+
+
 
         Volley.newRequestQueue(ListAllProductActivity.this).add(stringRequest);
 

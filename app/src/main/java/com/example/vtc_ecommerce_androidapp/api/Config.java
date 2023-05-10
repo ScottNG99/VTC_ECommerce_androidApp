@@ -73,7 +73,7 @@ public class Config {
 //    public static final String DELETE_CART = "http://fypvtcecommerce.000webhostapp.com/deleteCart.php?";
 //    public static final String GET_POPULAR_PRODUCT = "http://fypvtcecommerce.000webhostapp.com/GetPopularProduct.php?";
 //    public static final String UPDATE_CART_QTY = "http://fypvtcecommerce.000webhostapp.com/updateProductQtyForCart.php?";
-//    public static final String API_STRIPE = "http://" + IP_ADDRESS+ "/ecommerce/stripe-php-master/serversCard.php?";
+//    //public static final String API_STRIPE = "http://" + IP_ADDRESS+ "/ecommerce/stripe-php-master/serversCard.php?";
 //    public static final String GET_ORDER_LIST = "http://fypvtcecommerce.000webhostapp.com/getOrderList.php?userID=";
 //    public static final String ADD_ORDER = "http://fypvtcecommerce.000webhostapp.com/addOrder.php?";
 //    public static final String ADD_ORDER_LINE = "http://fypvtcecommerce.000webhostapp.com/createOrderProduct.php?";

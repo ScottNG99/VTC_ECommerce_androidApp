@@ -35,7 +35,7 @@ import com.example.vtc_ecommerce_androidapp.api.Config;
 public class ReviewDialogFragment extends DialogFragment {
 
     String rate;
-    String getpID;
+    String getpID,getorderlineID,getorderID,selection;
 
 
     @NonNull
@@ -75,6 +75,9 @@ public class ReviewDialogFragment extends DialogFragment {
 
         Bundle bundle = getArguments();
         getpID = bundle.getString("pID");
+        getorderlineID = bundle.getString("orderlineID");
+        getorderID = bundle.getString("orderID");
+        selection = bundle.getString("selection");
 
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -102,8 +105,14 @@ public class ReviewDialogFragment extends DialogFragment {
                     String url = Config.ADD_RATING + link;
 
                     new CollectManager().execute(url);
+
+                    apiCancelAndUpdate(getorderlineID,selection,txtUserID,getorderID);
                     dismiss();
                 }
+
+
+
+
 
             }
         });
@@ -117,7 +126,12 @@ public class ReviewDialogFragment extends DialogFragment {
 
     }
 
+    private void apiCancelAndUpdate(String getorderlineID, String selection, String txtUserIDtwo, String getorderID) {
 
+        String link = "orderlineID="+getorderlineID + "&selection="+selection + "&userID="+txtUserIDtwo + "&orderID="+getorderID;
+        String url = Config.UPDATE_AND_CANCEL_ORDER + link;
+        new CollectManager().execute(url);
+    }
 
 
     @Override
