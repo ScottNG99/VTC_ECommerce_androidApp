@@ -49,6 +49,7 @@ public class Config {
     public static final String GET_RECOMMENDATIONAPI = "http://" + IP_ADDRESS+ "/ecommerce/recommendationSystem/getRecommendation.php?userID=";
     public static final String GET_CATEGORY = "http://" + IP_ADDRESS+ "/ecommerce/getCategory.php?";
     public static final String TEST_GET_ORDER_LIST = "http://" + IP_ADDRESS+ "/ecommerce/testGetOrder.php?";
+    public static final String GETCHAT = "http://" + IP_ADDRESS+ "/ecommerce/OnlineChatAPI.php?";
 
 
 
@@ -84,5 +85,6 @@ public class Config {
 //    public static final String GET_RATING = "http://fypvtcecommerce.000webhostapp.com/getProducctReviews.php?";
 //    public static final String GET_RECOMMENDATIONAPI = "http://fypvtcecommerce.000webhostapp.com/recommendationSystem/getRecommendation.php?userID=";
 //    public static final String GET_CATEGORY = "http://fypvtcecommerce.000webhostapp.com/getCategory.php?";
+//      public static final String GET_CATEGORY = "http://fypvtcecommerce.000webhostapp.com/OnlineChatAPI.php?";
 
 }
